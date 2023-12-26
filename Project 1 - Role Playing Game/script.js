@@ -16,3 +16,13 @@ const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
 const text = document.querySelector('#text');
+
+//initialize buttons - linked onclick prop to functions
+button1.onclick = goStore;
+button2.onclick = goCave;
+button3.onclick = fightDragon;
+
+//functions for buttons' onclick
+function goStore() {}
+function goCave() {}
+function fightDragon() {}

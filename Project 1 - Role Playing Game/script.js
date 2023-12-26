@@ -23,6 +23,23 @@ const weapons = [
 		power: 100,
 	},
 ];
+const monsters = [
+	{
+		name: 'slime',
+		level: 2,
+		health: 15,
+	},
+	{
+		name: 'fanged beast',
+		level: 8,
+		health: 60,
+	},
+	{
+		name: 'dragon',
+		level: 20,
+		health: 300,
+	},
+];
 const locations = [
 	{
 		name: 'town square',
@@ -128,6 +145,16 @@ function sellWeapon() {
 		text.innerText = "Don't sell your only weapon!";
 	}
 }
-function fightDragon() {}
-function fightSlime() {}
-function fightBeast() {}
+function fightSlime() {
+	fighting = 0; //index of slime in monsters array
+	goFight;
+}
+function fightBeast() {
+	fighting = 1;
+	goFight;
+}
+function fightDragon() {
+	fighting = 2;
+	goFight;
+}
+function goFight() {}

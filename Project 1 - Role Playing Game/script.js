@@ -197,7 +197,9 @@ function goFight() {
 function attack() {
 	text.innerText = `The ${monsters[fighting].name} attacks.`;
 	text.innerText += ` You attack it with your ${weapons[currentWeapon].name}.`;
-	health -= monsters[fighting].level;
+	// health -= monsters[fighting].level;
+	//to make game more interesting changed health to
+	health -= getMonsterAttackValue(monsters[fighting].level);
 	monsterHealth -=
 		weapons[currentWeapon].power + (Math.floor(Math.random() * xp) + 1);
 	healthText.innerText = health;
@@ -208,7 +210,13 @@ function attack() {
 		fighting === 2 ? winGame() : defeatMonster();
 	}
 }
-
+// monster's attack now based on its level and the player's xp
+function getMonsterAttackValue(level) {
+	//hit sets the monsters attack to 5x its level - random number between 0 and players xp.
+	const hit = level * 5 - Math.floor(Math.random() * xp);
+	console.log(hit);
+	return hit;
+}
 function dodge() {
 	text.innerText = `You dodge the attack from the ${monsters[fighting].name}.`;
 }

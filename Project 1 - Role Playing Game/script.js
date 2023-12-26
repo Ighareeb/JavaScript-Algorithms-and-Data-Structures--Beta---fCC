@@ -214,6 +214,11 @@ function attack() {
 	} else if (monsterHealth <= 0) {
 		fighting === 2 ? winGame() : defeatMonster();
 	}
+	//Chance your weapon breaks
+	if (Math.random() <= 0.1 && inventory.length !== 1) {
+		text.innerText += ` Your ${inventory.pop()} breaks.`;
+		currentWeapon--;
+	}
 }
 // monster's attack now based on its level and the player's xp
 function getMonsterAttackValue(level) {

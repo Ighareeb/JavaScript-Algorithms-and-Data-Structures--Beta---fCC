@@ -79,6 +79,12 @@ const locations = [
 		'button functions': [goTown, goTown, goTown],
 		text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
 	},
+	{
+		name: 'lose',
+		'button text': ['REPLAY?', 'REPLAY?', 'REPLAY?'],
+		'button functions': [restart, restart, restart],
+		text: 'You die. ☠️',
+	},
 ];
 
 const button1 = document.querySelector('#button1');
@@ -206,4 +212,17 @@ function defeatMonster() {
 	xpText.innerText = xp;
 	update(locations[4]);
 }
-function lose() {}
+function lose() {
+	update(location[5]);
+}
+function restart() {
+	xp = 0;
+	health = 100;
+	gold = 50;
+	currentWeapon = 0;
+	inventory = ['stick'];
+	xpText.innerText = xp;
+	healthText.innerText = health;
+	goldText.innerText = gold;
+	goTown();
+}

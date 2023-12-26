@@ -85,6 +85,12 @@ const locations = [
 		'button functions': [restart, restart, restart],
 		text: 'You die. ☠️',
 	},
+	{
+		name: 'win',
+		'button text': ['REPLAY?', 'REPLAY?', 'REPLAY?'],
+		'button functions': [restart, restart, restart],
+		text: 'You defeat the dragon! YOU WIN THE GAME! 🎉',
+	},
 ];
 
 const button1 = document.querySelector('#button1');
@@ -199,9 +205,10 @@ function attack() {
 	if (health <= 0) {
 		lose();
 	} else if (monsterHealth <= 0) {
-		defeatMonster();
+		fighting === 2 ? winGame() : defeatMonster();
 	}
 }
+
 function dodge() {
 	text.innerText = `You dodge the attack from the ${monsters[fighting].name}.`;
 }
@@ -213,7 +220,10 @@ function defeatMonster() {
 	update(locations[4]);
 }
 function lose() {
-	update(location[5]);
+	update(locations[5]);
+}
+function winGame() {
+	update(locations[6]);
 }
 function restart() {
 	xp = 0;

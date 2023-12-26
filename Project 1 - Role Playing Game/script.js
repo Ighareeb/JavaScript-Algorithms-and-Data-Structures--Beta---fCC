@@ -67,7 +67,12 @@ function goStore() {
 function goCave() {
 	update(locations[2]);
 }
-function buyHealth() {}
+function buyHealth() {
+	gold -= 10;
+	health += 10;
+	goldText.innerText = gold;
+	healthText.innerText = health;
+}
 function buyWeapon() {}
 function fightDragon() {}
 function fightSlime() {}

@@ -5,6 +5,24 @@ let currentWeapon = 0;
 let fighting;
 let monsterHealth;
 let inventory = ['stick', 'dagger', 'sword'];
+const weapons = [
+	{
+		name: 'stick',
+		power: 5,
+	},
+	{
+		name: 'dagger',
+		power: 30,
+	},
+	{
+		name: 'claw hammer',
+		power: 50,
+	},
+	{
+		name: 'sword',
+		power: 100,
+	},
+];
 const locations = [
 	{
 		name: 'town square',
@@ -77,7 +95,16 @@ function buyHealth() {
 		text.innerText = 'You do not have enough gold to buy health.';
 	}
 }
-function buyWeapon() {}
+function buyWeapon() {
+	if (gold >= 30) {
+		gold -= 30;
+		currentWeapon++;
+		goldText.innerText = gold;
+		//inform user what weapon they bought
+		let newWeapon = weapons[currentWeapon].name;
+		text.innerText = `You now have a ${newWeapon}.`;
+	}
+}
 function fightDragon() {}
 function fightSlime() {}
 function fightBeast() {}

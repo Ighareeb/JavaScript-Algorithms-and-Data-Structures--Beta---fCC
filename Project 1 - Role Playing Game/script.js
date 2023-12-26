@@ -76,7 +76,7 @@ const locations = [
 			'Go to town square',
 			'Go to town square',
 		],
-		'button functions': [goTown, goTown, goTown],
+		'button functions': [goTown, goTown, easterEgg],
 		text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
 	},
 	{
@@ -290,5 +290,8 @@ function pick(guess) {
 		text.innerText += 'Wrong! You lose 10 health!';
 		health -= 10;
 		healthText.innerText = health;
+		if (health <= 0) {
+			lose();
+		}
 	}
 }

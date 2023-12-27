@@ -69,3 +69,36 @@ function getCaloriesFromInputs(list) {
 	}
 	return calories;
 }
+//calculate calories function which will be attached to form submit event
+function calculateCalories(event) {
+	event.preventDefault();
+	isError = false;
+	//get values from entries user has added
+	const breakfastNumberInputs = document.querySelectorAll(
+		'#breakfast input[type=number]',
+	);
+	const lunchNumberInputs = document.querySelectorAll(
+		'#lunch input[type=number]',
+	);
+	const dinnerNumberInputs = document.querySelectorAll(
+		'#dinner input[type=number]',
+	);
+	const snacksNumberInputs = document.querySelectorAll(
+		'#snacks input[type=number]',
+	);
+	const exerciseNumberInputs = document.querySelectorAll(
+		'#exercise input[type=number]',
+	);
+	//add conditional to return/stop function if invalid input detected
+	if (isError) {
+		return;
+	}
+	// pass elements to getCaloriesFromInputs() function
+	const breakfastCalories = getCaloriesFromInputs(breakfastNumberInputs);
+	const lunchCalories = getCaloriesFromInputs(lunchNumberInputs);
+	const dinnerCalories = getCaloriesFromInputs(dinnerNumberInputs);
+	const snacksCalories = getCaloriesFromInputs(snacksNumberInputs);
+	const exerciseCalories = getCaloriesFromInputs(exerciseNumberInputs);
+	//get value of daily calorie budget - NOTE since you used getById it is an El not a node list so place inside [] to make it an array when passing it to getCaloriesFromInputs() function
+	const budgetCalories = getCaloriesFromInputs([budgetNumberInput]);
+}

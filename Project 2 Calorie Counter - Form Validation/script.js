@@ -38,12 +38,18 @@ function addEntry() {
 	);
 	//number entries a user adds (qSA returns nodelist -  length property of NodeList === number entries)
 	const entryNumber =
-		targetInputContainer.querySelectorAll('input[type="text"]').length;
+		// 	when adding entries  you may notice some bugs. the first entry should have a count of 1, not 0.
+		// This bug occurs because you are querying for input[type="text"] elements BEFORE adding the new entry to the page. To fix this, update your entryNumber variable to be the value of the length of the query plus 1
+
+		targetInputContainer.querySelectorAll('input[type="text"]').length + 1;
 	// build dynamic HTML string to add //template literal also allows me to start on a new line for each HTML tag/el being created
 	const HTMLString = `
   <label for="${entryDropdown.value}-${entryNumber}-name">Entry ${entryNumber} Name</label>
   <input type="text" id="${entryDropdown.value}-${entryNumber}-name" placeholder="Name" />
   <label for="${entryDropdown.value}-${entryNumber}-calories">Entry ${entryNumber} Calories</label>
   <input id="${entryDropdown.value}-${entryNumber}-calories" type="number" placeholder="Calories" min="0"/>`;
-	targetInputContainer.innerHTML += HTMLString;
+	//changed .innerHTML to .insertAdjacentHTML(str-position, str-html-to-add)
+	targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
 }
+//EventListener for addEntry
+addEntryButton.addEventListener('click', addEntry);

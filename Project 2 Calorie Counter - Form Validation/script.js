@@ -53,3 +53,19 @@ function addEntry() {
 }
 //EventListener for addEntry
 addEntryButton.addEventListener('click', addEntry);
+//get calorie counts from user entries
+function getCaloriesFromInputs(list) {
+	let calories = 0;
+	// The NodeList values you will pass to ${list} will consist of input elements -> use value attribute of each element. Also use clearInputString function on list.value + validate with isInvalidInput() [returns String.match, which is an array of matches or null if no matches are found.]
+	for (let i = 0; i < list.length; i++) {
+		const currVal = cleanInputString(list[i].value);
+		const invalidInputMatch = isInvalidInput(currVal);
+		if (invalidInputMatch) {
+			alert(`Invalid Input: ${invalidInputMatch[0]}`);
+			isError = true;
+			return null;
+		}
+		calories += Number(currVal);
+	}
+	return calories;
+}

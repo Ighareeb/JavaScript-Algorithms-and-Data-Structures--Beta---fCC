@@ -51,8 +51,7 @@ function addEntry() {
 	//changed .innerHTML to .insertAdjacentHTML(str-position, str-html-to-add)
 	targetInputContainer.insertAdjacentHTML('beforeend', HTMLString);
 }
-//EventListener for addEntry
-addEntryButton.addEventListener('click', addEntry);
+
 //get calorie counts from user entries
 function getCaloriesFromInputs(list) {
 	let calories = 0;
@@ -89,10 +88,6 @@ function calculateCalories(event) {
 	const exerciseNumberInputs = document.querySelectorAll(
 		'#exercise input[type=number]',
 	);
-	//add conditional to return/stop function if invalid input detected
-	if (isError) {
-		return;
-	}
 	// pass elements to getCaloriesFromInputs() function
 	const breakfastCalories = getCaloriesFromInputs(breakfastNumberInputs);
 	const lunchCalories = getCaloriesFromInputs(lunchNumberInputs);
@@ -101,4 +96,27 @@ function calculateCalories(event) {
 	const exerciseCalories = getCaloriesFromInputs(exerciseNumberInputs);
 	//get value of daily calorie budget - NOTE since you used getById it is an El not a node list so place inside [] to make it an array when passing it to getCaloriesFromInputs() function
 	const budgetCalories = getCaloriesFromInputs([budgetNumberInput]);
+	//add conditional to return/stop function if invalid input detected
+	if (isError) {
+		return;
+	}
+	//CALCULATIONS
+	const consumedCalories =
+		breakfastCalories + lunchCalories + dinnerCalories + snacksCalories;
+	const remainingCalories =
+		budgetCalories - consumedCalories + exerciseCalories;
+	const surplusOrDeficit = remainingCalories >= 0 ? 'Surplus' : 'Deficit';
+	//construct output to display to user
+	output.innerHTML = `<span class="${surplusOrDeficit.toLowerCase()}">${Math.abs(
+		remainingCalories,
+	)} Calorie ${surplusOrDeficit}</span>
+	<hr />
+	<p>${budgetCalories} Calories Budgeted</p>
+	<p>${consumedCalories} Calories Consumed</p>
+	<p>${exerciseCalories} Calories Burned</p>`;
+	output.classList.remove('hide');
 }
+//EventListener for addEntry
+addEntryButton.addEventListener('click', addEntry);
+//submit form event listener using calculateCalories as callback
+calorieCounter.addEventListener('submit', calculateCalories);

@@ -102,6 +102,7 @@ const playSong = (id) => {
 	playButton.classList.add('playing');
 	audio.play();
 	highlightCurrentSong();
+	setPlayerDisplay();
 };
 //Implement functionality for pausing song
 const pauseSong = () => {
@@ -128,6 +129,15 @@ const playPreviousSong = () => {
 		const previousSong = userData?.songs[currentSongIndex - 1];
 		playSong(previousSong.id);
 	}
+};
+//function to display current song title & artist in the player-display > p
+const setPlayerDisplay = () => {
+	const playingSong = document.getElementById('player-song-title');
+	const songArtist = document.getElementById('player-song-artist');
+	const currentTitle = userData?.currentSong?.title;
+	const currentArtist = userData?.currentSong?.artist;
+	playingSong.textContent = currentTitle ? currentTitle : '';
+	songArtist.textContent = currentArtist ? currentArtist : '';
 };
 //function to highlight (in the playlist) current song being played
 const highlightCurrentSong = () => {

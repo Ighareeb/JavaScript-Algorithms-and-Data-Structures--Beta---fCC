@@ -86,6 +86,22 @@ let userData = {
 	currentSong: null, //song info
 	songCurrentTime: 0, //for tracking playback time
 };
+//Implement functionality for playing displayed song
+const playSong = (id) => {
+	const song = userData?.songs.find((song) => song.id === id);
+	audio.src = song.src;
+	audio.title = song.title;
+	if (userData?.currentSong === null || userData?.currentSong.id !== song.id) {
+		//start song from beginning
+		audio.currentTime = 0;
+	} else {
+		audio.currentTime = userData.songCurrentTime;
+	}
+	//update current song being played + appearance of playButton El
+	userData.currentSong = song;
+	playButton.classList.add('playing');
+	audio.play();
+};
 //display songs in UI function
 const renderSongs = (array) => {
 	const songsHTML = array
@@ -105,5 +121,13 @@ const renderSongs = (array) => {
 };
 //add songsHTML rendered to DOM
 playlistSongs.innerHTML = songsHTML;
+//eventListener for playButton --> playSongs() function
+playButton.addEventListener('click', () => {
+	if (userData?.currentSong === null) {
+		playSong(userData?.songs[0].id);
+	} else {
+		playSong(userData?.currentSong.id);
+	}
+});
 //Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined
 renderSongs(userData?.songs);

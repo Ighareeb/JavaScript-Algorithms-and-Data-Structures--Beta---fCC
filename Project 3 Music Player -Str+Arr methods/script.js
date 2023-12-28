@@ -102,12 +102,19 @@ const playSong = (id) => {
 	playButton.classList.add('playing');
 	audio.play();
 };
-//display songs in UI function
+//Implement functionality for pausing song
+const pauseSong = () => {
+	//variable to store current time of the song when it is paused
+	userData.songCurrentTime = audio.currentTime;
+	playButton.classList.remove('playing');
+	audio.pause();
+};
+//display songs in UI function | adding onclick in button means song plays anytime useer clicks on song in playlist since button > span*3
 const renderSongs = (array) => {
 	const songsHTML = array
 		.map((song) => {
 			return `<li id="song-${song.id}" class="playlist-song">
-	<button class="playlist-song-info">
+	<button class="playlist-song-info" onclick="playSong(${song.id})">
 		<span class="playlist-song-title">${song.title}</span>
 		<span class="playlist-song-artist">${song.artist}</span>
 		<span class="playlist-song-duration">${song.duration}</span>
@@ -121,7 +128,7 @@ const renderSongs = (array) => {
 };
 //add songsHTML rendered to DOM
 playlistSongs.innerHTML = songsHTML;
-//eventListener for playButton --> playSongs() function
+//eventListener for playButton --> playSong() function
 playButton.addEventListener('click', () => {
 	if (userData?.currentSong === null) {
 		playSong(userData?.songs[0].id);
@@ -129,5 +136,7 @@ playButton.addEventListener('click', () => {
 		playSong(userData?.currentSong.id);
 	}
 });
+//eventListener for pauseButton --> pauseSong() function
+pauseButton.addEventListener('click', pauseSong);
 //Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined
 renderSongs(userData?.songs);

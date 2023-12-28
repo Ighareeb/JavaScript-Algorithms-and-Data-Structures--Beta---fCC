@@ -224,7 +224,7 @@ const setPlayButtonAccessibleText = () => {
 };
 //get index of each song in var(songs) prop of userData using function
 const getCurrentSongIndex = () => userData?.songs.indexOf(userData.currentSong);
-
+//EVENT LISTENERS
 //eventListener for playButton --> playSong() function
 playButton.addEventListener('click', () => {
 	if (userData?.currentSong === null) {
@@ -241,6 +241,20 @@ nextButton.addEventListener('click', playNextSong);
 previousButton.addEventListener('click', playPreviousSong);
 //eventListener for shuffleButton --> shuffle() function
 shuffleButton.addEventListener('click', shuffle);
-
+//eventListener for autoplaying next song when current ends
+audio.addEventListener('ended', () => {
+	const currentSongIndex = getCurrentSongIndex();
+	const nextSongExists = userData?.songs[currentSongIndex + 1] !== undefined;
+	if (nextSongExists) {
+		playNextSong();
+	} else {
+		userData.currentSong = null;
+		userData.songCurrentTime = 0;
+		pauseSong();
+		setPlayerDisplay();
+		highlightCurrentSong();
+		setPlayButtonAccessibleText();
+	}
+});
 //Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined
 renderSongs(userData?.songs);

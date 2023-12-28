@@ -105,3 +105,5 @@ const renderSongs = (array) => {
 };
 //add songsHTML rendered to DOM
 playlistSongs.innerHTML = songsHTML;
+//Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined
+renderSongs(userData?.songs);

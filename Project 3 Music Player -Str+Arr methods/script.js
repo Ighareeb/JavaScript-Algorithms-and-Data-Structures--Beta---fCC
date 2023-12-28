@@ -131,6 +131,18 @@ const playPreviousSong = () => {
 		playSong(previousSong.id);
 	}
 };
+// function to shuffle songs in playlist
+const shuffle = () => {
+	userData?.songs.sort(() => Math.random() - 0.5);
+	//When the shuffle button is pressed, you want to set the currentSong to nothing and the songCurrentTime to 0
+	userData.currentSong = null;
+	userData.songCurrentTime = 0;
+	//re-render the songs, pause the currently playing song, set the player display, and set the play button accessible text again.
+	renderSongs(userData?.songs);
+	pauseSong();
+	setPlayerDisplay();
+	setPlayButtonAccessibleText();
+};
 //function to display current song title & artist in the player-display > p
 const setPlayerDisplay = () => {
 	const playingSong = document.getElementById('player-song-title');
@@ -169,9 +181,9 @@ const renderSongs = (array) => {
 	</li>`;
 		})
 		.join(''); // <--- returns string that can be concatenated to innerHTML
+	playlistSongs.innerHTML = songsHTML;
 };
 //add songsHTML rendered to DOM
-playlistSongs.innerHTML = songsHTML;
 //function to set aria-label attribute to current/first song in playlist or if it is empty then to "play"
 const setPlayButtonAccessibleText = () => {
 	const song = userData?.currentSong || userData?.songs[0];
@@ -197,5 +209,7 @@ pauseButton.addEventListener('click', pauseSong);
 nextButton.addEventListener('click', playNextSong);
 //eventListener for previousButton --> playPreviousSong() function
 previousButton.addEventListener('click', playPreviousSong);
+//eventListener for shuffleButton --> shuffle() function
+shuffleButton.addEventListener('click', shuffle);
 //Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined
 renderSongs(userData?.songs);

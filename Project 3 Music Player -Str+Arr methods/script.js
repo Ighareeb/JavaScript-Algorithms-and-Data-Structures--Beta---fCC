@@ -101,6 +101,7 @@ const playSong = (id) => {
 	userData.currentSong = song;
 	playButton.classList.add('playing');
 	audio.play();
+	highlightCurrentSong();
 };
 //Implement functionality for pausing song
 const pauseSong = () => {
@@ -126,6 +127,19 @@ const playPreviousSong = () => {
 		const currentSongIndex = getCurrentSongIndex();
 		const previousSong = userData?.songs[currentSongIndex - 1];
 		playSong(previousSong.id);
+	}
+};
+//function to highlight (in the playlist) current song being played
+const highlightCurrentSong = () => {
+	const playlistSongElements = document.querySelectorAll('.playlist-song');
+	const songToHighlight = document.getElementById(
+		`song-${userData?.currentSong?.id}`,
+	);
+	playlistSongElements.forEach((songEl) => {
+		songEl.removeAttribute('aria-current');
+	});
+	if (songToHighlight) {
+		songToHighlight.setAttribute('aria-current', 'true');
 	}
 };
 //display songs in UI function | adding onclick in button means song plays anytime useer clicks on song in playlist since button > span*3

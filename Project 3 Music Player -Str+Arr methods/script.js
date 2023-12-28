@@ -109,6 +109,25 @@ const pauseSong = () => {
 	playButton.classList.remove('playing');
 	audio.pause();
 };
+//functions for play next/prev song
+const playNextSong = () => {
+	if (userData?.currentSong === null) {
+		playSong(userData?.songs[0].id);
+	} else {
+		const currentSongIndex = getCurrentSongIndex();
+		const nextSong = userData?.songs[currentSongIndex + 1];
+		playSong(nextSong.id);
+	}
+};
+const playPreviousSong = () => {
+	if (userData?.currentSong === null) {
+		return;
+	} else {
+		const currentSongIndex = getCurrentSongIndex();
+		const previousSong = userData?.songs[currentSongIndex - 1];
+		playSong(previousSong.id);
+	}
+};
 //display songs in UI function | adding onclick in button means song plays anytime useer clicks on song in playlist since button > span*3
 const renderSongs = (array) => {
 	const songsHTML = array
@@ -128,6 +147,9 @@ const renderSongs = (array) => {
 };
 //add songsHTML rendered to DOM
 playlistSongs.innerHTML = songsHTML;
+//get index of each song in var(songs) prop of userData using function
+const getCurrentSongIndex = () => userData?.songs.indexOf(userData.currentSong);
+
 //eventListener for playButton --> playSong() function
 playButton.addEventListener('click', () => {
 	if (userData?.currentSong === null) {
@@ -138,5 +160,9 @@ playButton.addEventListener('click', () => {
 });
 //eventListener for pauseButton --> pauseSong() function
 pauseButton.addEventListener('click', pauseSong);
+//eventListener for nextButton --> playNextSong() function
+nextButton.addEventListener('click', playNextSong);
+//eventListener for previousButton --> playPreviousSong() function
+previousButton.addEventListener('click', playPreviousSong);
 //Optional chaining (?.) helps prevent errors when accessing nested properties that might be null or undefined
 renderSongs(userData?.songs);

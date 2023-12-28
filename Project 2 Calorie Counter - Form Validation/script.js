@@ -116,7 +116,22 @@ function calculateCalories(event) {
 	<p>${exerciseCalories} Calories Burned</p>`;
 	output.classList.remove('hide');
 }
+//clear form input fields + budget input + output el
+function clearForm() {
+	//qSA return nodelist so change to array to use array methods
+	const inputContainers = Array.from(
+		document.querySelectorAll('.input-container'),
+	);
+	for (let i = 0; i < inputContainers.length; i++) {
+		inputContainers[i].innerHTML = '';
+	}
+	budgetNumberInput.value = '';
+	output.innerText = '';
+	output.classList.add('hide');
+}
 //EventListener for addEntry
 addEntryButton.addEventListener('click', addEntry);
-//submit form event listener using calculateCalories as callback
+//Submit form EventListener using calculateCalories as callback
 calorieCounter.addEventListener('submit', calculateCalories);
+//EventListener for clearForm
+clearButton.addEventListener('click', clearForm);

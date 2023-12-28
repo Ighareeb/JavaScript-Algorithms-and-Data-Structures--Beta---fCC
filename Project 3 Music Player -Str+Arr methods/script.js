@@ -78,3 +78,13 @@ const allSongs = [
 		src: 'https://s3.amazonaws.com/org.freecodecamp.mp3-player-project/chasing-that-feeling.mp3',
 	},
 ];
+//web audio api
+const audio = new Audio(); //creates new HTML audio El
+//user data object, created copy of allSongs using ... so we don't mutate original when user eg. shuffling/deleting
+let userData = {
+	songs: [...allSongs],
+	currentSong: null, //song info
+	songCurrentTime: 0, //for tracking playback time
+};
+//display songs in UI function
+const renderSongs = (array) => {};

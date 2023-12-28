@@ -103,6 +103,7 @@ const playSong = (id) => {
 	audio.play();
 	highlightCurrentSong();
 	setPlayerDisplay();
+	setPlayButtonAccessibleText();
 };
 //Implement functionality for pausing song
 const pauseSong = () => {
@@ -171,6 +172,14 @@ const renderSongs = (array) => {
 };
 //add songsHTML rendered to DOM
 playlistSongs.innerHTML = songsHTML;
+//function to set aria-label attribute to current/first song in playlist or if it is empty then to "play"
+const setPlayButtonAccessibleText = () => {
+	const song = userData?.currentSong || userData?.songs[0];
+	playButton.setAttribute(
+		'aria-label',
+		song?.title ? `Play ${song.title}` : 'Play',
+	);
+};
 //get index of each song in var(songs) prop of userData using function
 const getCurrentSongIndex = () => userData?.songs.indexOf(userData.currentSong);
 

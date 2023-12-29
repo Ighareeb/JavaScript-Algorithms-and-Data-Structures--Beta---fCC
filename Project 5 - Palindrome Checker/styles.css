@@ -1,0 +1,77 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	background-color: #0a0a23;
+	color: #ffffff;
+}
+
+.container {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.title {
+	text-align: center;
+	padding: 10px 0;
+	font-size: 2.5rem;
+	margin-bottom: 20px;
+}
+
+#palindrome-form {
+	width: min(100vw, 450px);
+	min-height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 10px;
+	padding: 20px;
+	border-radius: 20px;
+	box-shadow: 0 6px 6px #002ead;
+	background-color: white;
+}
+
+#palindrome-form > label {
+	color: #0a0a23;
+	margin-bottom: 20px;
+}
+
+#palindrome-form > input {
+	width: 250px;
+	height: 30px;
+	text-align: center;
+	font-size: 1.2rem;
+	margin: 10px;
+	border: none;
+	border-bottom: 2px solid #5a01a7;
+}
+
+#palindrome-form > button {
+	width: 90px;
+	border: none;
+	padding: 10px;
+	border-radius: 15px;
+	background-color: #5a01a7;
+	color: white;
+	cursor: pointer;
+}
+
+.results-div {
+	color: black;
+	min-height: 50px;
+	overflow-y: auto;
+	word-wrap: break-word;
+}
+
+.hidden {
+	display: none;
+}

@@ -10,3 +10,10 @@ const month = date.getMonth() + 1; //# 0-11 *{zero indexed so use + 1}*
 const year = date.getFullYear(); //#yyyy
 const hours = date.getHours(); //#0-23 {zero indexed; 0 = midnight}
 const minutes = date.getMinutes(); //#0-59 {starts from 0}
+
+//Option 1
+const formattedDate = `${day}-${month}-${year}`;
+// console.log(formattedDate); //29 - 12 - 2023;
+currentDateParagraph.textContent = formattedDate;
+//eventListener for <select>
+dateOptionsSelectElement.addEventListener('change', () => {});

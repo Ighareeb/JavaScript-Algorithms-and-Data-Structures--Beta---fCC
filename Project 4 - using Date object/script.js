@@ -17,3 +17,17 @@ const formattedDate = `${day}-${month}-${year}`;
 currentDateParagraph.textContent = formattedDate;
 //eventListener for <select>
 dateOptionsSelectElement.addEventListener('change', () => {});
+//switch statement to check which option selected using <select>.value
+switch (dateOptionsSelectElement.value) {
+	case 'yyyy-mm-dd':
+		currentDateParagraph.textContent = formattedDate
+			.split('-')
+			.reverse()
+			.join('-');
+		break;
+	case 'mm-dd-yyyy-h-mm':
+		currentDateParagraph.textContent = `${month}-${day}-${year} ${hours} Hours ${minutes} Minutes`;
+		break;
+	default:
+		currentDateParagraph.textContent = formattedDate;
+}

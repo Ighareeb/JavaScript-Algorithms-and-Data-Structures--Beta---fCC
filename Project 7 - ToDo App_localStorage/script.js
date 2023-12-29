@@ -17,3 +17,17 @@ const discardBtn = document.getElementById('discard-btn');
 const taskData = [];
 //currentTask object to track/manage state
 let currentTask = {};
+//eventListeners to open/close form (modal) + cancelBtn + discardBtn
+openTaskFormBtn.addEventListener('click', () =>
+	taskForm.classList.toggle('hidden'),
+);
+// showModal() is a method associated with the HTML dialog element. It is used to display a modal dialog box on a web page. This will display a modal with the Discard and Cancel buttons.
+closeTaskFormBtn.addEventListener('click', () => {
+	confirmCloseDialog.showModal();
+});
+// close() is a method of the window object you can use to close the current window, or a modal you create with the dialog element.
+cancelBtn.addEventListener('click', () => confirmCloseDialog.close());
+discardBtn.addEventListener('click', () => {
+	confirmCloseDialog.close();
+	taskForm.classList.toggle('hidden');
+});

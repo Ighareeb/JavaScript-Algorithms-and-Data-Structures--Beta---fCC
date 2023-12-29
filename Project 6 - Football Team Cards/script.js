@@ -177,3 +177,21 @@ Object.freeze(myFavoriteFootballTeam);
 //variables to access keys in the team-stats object (obj destructuring)
 const { sport, team, year, players } = myFavoriteFootballTeam;
 const { coachName } = myFavoriteFootballTeam.headCoach;
+//display team-stats/info
+typeOfSport.textContent = sport;
+teamName.textContent = team;
+worldCupYear.textContent = year;
+headCoach.textContent = coachName;
+// function to display player cards based of <select> filter option
+const setPlayerCards = (arr = players) => {
+	playerCards.innerHTML += arr
+		.map(({ name, position, number, isCaptain, nickname }) => {
+			return `<div class="player-card">
+			<h2>${name}${isCaptain ? '(Captain)' : ''}</h2>
+			<p>Position: ${position}</p>
+			<p>Number: ${number}</p>
+			<p>Nickname: ${nickname !== null ? nickname : 'N/A'}</p>
+			</div>`;
+		})
+		.join('');
+};

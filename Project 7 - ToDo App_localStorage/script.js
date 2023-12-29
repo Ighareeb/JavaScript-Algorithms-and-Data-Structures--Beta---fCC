@@ -12,3 +12,8 @@ const closeTaskFormBtn = document.getElementById('close-task-form-btn');
 const addOrUpdateTaskBtn = document.getElementById('add-or-update-task-btn');
 const cancelBtn = document.getElementById('cancel-btn');
 const discardBtn = document.getElementById('discard-btn');
+
+//task data array with task objects (store/manage task objects & save to local storage)
+const taskData = [];
+//currentTask object to track/manage state
+let currentTask = {};

@@ -182,15 +182,15 @@ function sellWeapon() {
 }
 function fightSlime() {
 	fighting = 0; //index of slime in monsters array
-	goFight;
+	goFight();
 }
 function fightBeast() {
 	fighting = 1;
-	goFight;
+	goFight();
 }
 function fightDragon() {
 	fighting = 2;
-	goFight;
+	goFight();
 }
 function goFight() {
 	update(locations[3]);

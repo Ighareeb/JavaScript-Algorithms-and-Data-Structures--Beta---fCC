@@ -43,20 +43,63 @@ discardBtn.addEventListener('click', () => {
 //2. eventListeners for submitting user form data
 taskForm.addEventListener('submit', (e) => {
 	e.preventDefault();
-	//check if task exists or not to decide whether to add or update task (findIndex()returns index if exists or -1)
+	// // 1.check if task exists or not to decide whether to add or update task (findIndex()returns index if exists or -1)
+	// const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
+	// //ID = titleInput value --> lowercase --> split str into array on space between words --> hyphenate when joining back into str + Date.now() to make id more unique
+	// const taskObj = {
+	// 	id: `${titleInput.value.toLowerCase().split(' ').join('-')}-${Date.now()}`,
+	// 	title: titleInput.value,
+	// 	date: dateInput.value,
+	// 	description: descriptionInput.value,
+	// };
+	// if (dataArrIndex === -1) {
+	// 	taskData.unshift(taskObj);
+	// }
+	//REFACTORED INTO 2 SEPARATE FUNCTION add to array, add to DOM
+	// // 2. display taskData in tasksContainer + added delete & edit button for each task
+	// taskData.forEach(
+	// 	({ id, title, date, description }) =>
+	// 		(tasksContainer.innerHTML += `
+	// <div class="task" id="${id}">
+	//     <p><strong>Title:</strong> ${title}</p>
+	//     <p><strong>Date:</strong> ${date}</p>
+	//     <p><strong>Description:</strong> ${description}</p>
+	//     <button type="button" class="btn">Edit</button>
+	//     <button type="button" class="btn">Delete</button>
+	// </div>
+	// `),
+	// );
+	// reset(); removed as added to addOrUpdateTask() function
+	addOrUpdateTask();
+});
+//function to reset all input fields
+const reset = () => {
+	titleInput.value = '';
+	dateInput.value = '';
+	descriptionInput.value = '';
+	taskForm.classList.toggle('hidden');
+	currentTask = {};
+};
+//REFACTORED taskForm eventListener logic into two separate functions
+// 1.add to array
+const addOrUpdateTask = () => {
 	const dataArrIndex = taskData.findIndex((item) => item.id === currentTask.id);
-	//ID = titleInput value --> lowercase --> split str into array on space between words --> hyphenate when joining back into str + Date.now() to make id more unique
 	const taskObj = {
 		id: `${titleInput.value.toLowerCase().split(' ').join('-')}-${Date.now()}`,
 		title: titleInput.value,
 		date: dateInput.value,
 		description: descriptionInput.value,
 	};
-	//
 	if (dataArrIndex === -1) {
 		taskData.unshift(taskObj);
 	}
-	//display taskData in tasksContainer + added delete & edit button for each task
+	updateTaskContainer();
+	reset();
+};
+//2. add to DOM
+const updateTaskContainer = () => {
+	// fix bug to clear out prev task when adding a new one so it isn't duplicated
+	tasksContainer.innerHTML = '';
 	taskData.forEach(
 		({ id, title, date, description }) =>
 			(tasksContainer.innerHTML += `
@@ -69,13 +112,4 @@ taskForm.addEventListener('submit', (e) => {
     </div>
     `),
 	);
-	reset();
-});
-//function to reset all input fields
-const reset = () => {
-	titleInput.value = '';
-	dateInput.value = '';
-	descriptionInput.value = '';
-	taskForm.classList.toggle('hidden');
-	currentTask = {};
 };

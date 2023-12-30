@@ -5,15 +5,16 @@ const result = document.getElementById('result');
 // function to check user input when it is submitted
 //FUNCTIONS
 const checkUserInput = () => {
-	decimalToBinary(parseInt(numberInput.value));
 	// input type="number" element allows special characters like ., +, and e, users can input floats like 2.2, equations like 2e+3, or even just e, which you don't want to allow.
 	// parseInt() function, which converts a string into an integer or whole number - returns either an integer or NaN
 	if (!numberInput.value || isNaN(parseInt(numberInput.value))) {
 		alert('Please provide a decimal number');
 		return;
 	}
+	result.textContent = decimalToBinary(parseInt(numberInput.value));
 	numberInput.value = '';
 };
+
 //For the binary to decimal conversion, you need to divide input by 2 until the quotient, or the result of dividing two numbers, is 0. Use a while loop to run a block of code as long as input is greater than 0 and can be divided.
 //NON_RECURSIVE SOLUTION
 // const decimalToBinary = (input) => {
@@ -40,6 +41,10 @@ const checkUserInput = () => {
 // 		result.innerText = remainders.reverse().join('');
 // 	}
 // };
+// Inputs: [6, 3, 1];
+// Quotients: [3, 1, 0];
+// Remainders: [0, 1, 1]; reversed 1 1 0 --> 6
+/////------------------------------
 //MORE EFFICIENT NON_RECURSIVE SOLUTION
 // const decimalToBinary = (input) => {
 // 	let binary = '';
@@ -60,3 +65,16 @@ const checkUserInput = () => {
 // 		checkUserInput();
 // 	}
 // });
+//===================================
+//RECURSIVE SOLUTION
+const decimalToBinary = (input) => {
+	//start with base case
+	if (input === 0) {
+		return '';
+	}
+	//recursive case - This effectively lowers the input by roughly half each time the decimalToBinary() function is called.
+	// However, remember that the binary number string is built by calculating the remainder of input divided by 2 and concatenating that to the end.
+	else {
+		return decimalToBinary(Math.floor(input / 2)) + (input % 2);
+	}
+};

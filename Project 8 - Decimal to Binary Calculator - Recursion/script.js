@@ -69,8 +69,13 @@ const checkUserInput = () => {
 //RECURSIVE SOLUTION
 const decimalToBinary = (input) => {
 	//start with base case
-	if (input === 0) {
-		return '';
+	// if (input === 0) {
+	// 	return '0';
+	// } else if (input === 1) {
+	// 	return '1';
+	// } ---->refactor
+	if (input === 0 || input === 1) {
+		return String(input);
 	}
 	//recursive case - This effectively lowers the input by roughly half each time the decimalToBinary() function is called.
 	// However, remember that the binary number string is built by calculating the remainder of input divided by 2 and concatenating that to the end.

@@ -41,22 +41,22 @@ const checkUserInput = () => {
 // 	}
 // };
 //MORE EFFICIENT NON_RECURSIVE SOLUTION
-const decimalToBinary = (input) => {
-	let binary = '';
-	if (input === 0) {
-		binary = '0';
-	}
-	while (input > 0) {
-		input = Math.floor(input / 2); //quotient
-		binary = (input % 2) + binary; //remainder + '' i.e converts/concatenates remainder into the binary string
-	}
-	result.innerText = binary;
-};
-//
-//eventListeners for submitting user input
-convertBtn.addEventListener('click', checkUserInput);
-numberInput.addEventListener('keydown', (e) => {
-	if (e.key === 'Enter') {
-		checkUserInput();
-	}
-});
+// const decimalToBinary = (input) => {
+// 	let binary = '';
+// 	if (input === 0) {
+// 		binary = '0';
+// 	}
+// 	while (input > 0) {
+// 		input = Math.floor(input / 2); //quotient
+// 		binary = (input % 2) + binary; //remainder + '' i.e converts/concatenates remainder into the binary string
+// 	}
+// 	result.innerText = binary;
+// };
+// //
+// //eventListeners for submitting user input
+// convertBtn.addEventListener('click', checkUserInput);
+// numberInput.addEventListener('keydown', (e) => {
+// 	if (e.key === 'Enter') {
+// 		checkUserInput();
+// 	}
+// });

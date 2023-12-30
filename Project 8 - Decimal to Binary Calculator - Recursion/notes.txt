@@ -23,7 +23,7 @@ Because bits are often grouped into bytes, it's common to see binary numbers rep
 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1
   0 |  0 |  1 |  1 | 0 | 1 | 0 | 0
 
-
+-----------------------------------------------
 MORE EFFICIENT NON_RECURSIVE SOLUTION LOGIC - decimalToBinary() function
 Each time the while loop runs, input is the quotient of the previous value of input divided by 2, rounded down. Eventually, input is less than 1, and the loop stops running.
 You can do this in a single step.
@@ -32,5 +32,44 @@ Inside your while loop, set input equal to the quotient of input divided by 2. A
 In previous non-recursive version, you pushed the remainder of input divided by 2 to binaryArray. Then later you reversed and joined the entries into a binary number string.
 But it would be easier to use string concatenation within the loop to build the binary string from right to left, so you won't need to reverse it later.
 First, use the remainder operator (%) to set binary equal to the remainder of input divided by 2.
+----------------------------------------------
+RECURSION:
+A recursive function is a function that calls itself over and over. But you have to be careful because you can easily create an infinite loop. That's where the base case comes in. The base case is when the function stops calling itself, and it is a good idea to write it first.
+When writing the recursive case, you need to remember two things:
+--What is the base case?
+--What is the least amount of work you need to do to get closer to the base case?
 
+EXAMPLE OF RECURSION:
+const a = () => "freeCodeCamp " + b();
+const b = () => "is " + c();
+const c = () => "awesome!";
+-----------------------------------------------
+STACK Data Structure
+-items stored if LIFO manner
+-you can only .push() add to First, .pop() remove Last
+-CALL STACK is collection of function calls stored in stack structure. 
+a() calls b(). b() calls c().
+c() on top of call stack runs and gets popped off. b runs with value of c() then gets popped off. finally a() runs with value of b-c string value
 
+EXAMPLE RECURSION 2 - count down from given number to 0:
+const countdown = (number) => {
+  (a)console.log(number);
+              //(if)base case (else)Recursive case
+  if (number === 0){
+    (b)console.log("Reached base case");
+    return 
+  } else {
+    countdown(number - 1);
+    (c)console.log(number);
+  }
+}
+countdown(3);
+a. 3   
+a. 2   
+a. 1   
+a. 0   
+b. Reached base case
+c. 1
+c. 2
+c. 3
+You should see a countdown from 3 to 0, followed by 'Reached base case', and a count from 1 to 3. This is because, after the recursive loop is finished, the function will continue to execute the code after the recursive call. This is why you see Reached base case before the count from 1 to 3. i.e. (c) console log gets called only once base case is reached.

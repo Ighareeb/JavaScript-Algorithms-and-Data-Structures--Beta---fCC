@@ -7,11 +7,16 @@ const result = document.getElementById('result');
 const checkUserInput = () => {
 	// input type="number" element allows special characters like ., +, and e, users can input floats like 2.2, equations like 2e+3, or even just e, which you don't want to allow.
 	// parseInt() function, which converts a string into an integer or whole number - returns either an integer or NaN
-	if (!numberInput.value || isNaN(parseInt(numberInput.value))) {
+	const inputInt = parseInt(numberInput.value);
+	if (!numberInput.value || isNaN(inputInt)) {
 		alert('Please provide a decimal number');
 		return;
 	}
-	result.textContent = decimalToBinary(parseInt(numberInput.value));
+	if (inputInt === 5) {
+		showAnimation();
+		return;
+	}
+	result.textContent = decimalToBinary(inputInt);
 	numberInput.value = '';
 };
 
@@ -83,3 +88,6 @@ const decimalToBinary = (input) => {
 		return decimalToBinary(Math.floor(input / 2)) + (input % 2);
 	}
 };
+//==========================
+//ANIMATION (occurs when user tries to convery 5 to binary) - check new conditional in checkUserInput()
+const showAnimation = () => {};

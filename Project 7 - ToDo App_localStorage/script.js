@@ -92,6 +92,8 @@ const addOrUpdateTask = () => {
 	};
 	if (dataArrIndex === -1) {
 		taskData.unshift(taskObj);
+	} else {
+		taskData[dataArrIndex] = taskObj;
 	}
 	updateTaskContainer();
 	reset();
@@ -121,5 +123,21 @@ const deleteTask = (buttonEl) => {
 	const dataArrIndex = taskData.findIndex(
 		(item) => item.id === buttonEl.parentElement.id,
 	);
+	//remove task from DOM and from array
+	buttonEl.parentElement.remove();
+	taskData.splice(dataArrIndex, 1);
 };
-const editTask = (buttonEl) => {};
+const editTask = (buttonEl) => {
+	// find index (same as deleteTask step)
+	const dataArrIndex = taskData.findIndex(
+		(item) => item.id === buttonEl.parentElement.id,
+	);
+	currentTask = taskData[dataArrIndex];
+	titleInput.value = currentTask.title;
+	dateInput.value = currentTask.date;
+	descriptionInput.value = currentTask.description;
+	addOrUpdateTaskBtn.innerText = 'Update Task';
+	addOrUpdateTaskBtn.ariaLabel = 'Update Task';
+	taskForm.classList.toggle('hidden');
+	//make editTask functional (actually reflect when task is edited/submitted) by adding to addOrUpdateTask function in the else statement
+};

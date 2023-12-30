@@ -90,4 +90,33 @@ const decimalToBinary = (input) => {
 };
 //==========================
 //ANIMATION (occurs when user tries to convery 5 to binary) - check new conditional in checkUserInput()
-const showAnimation = () => {};
+const showAnimation = () => {
+	//different because of async and we want displayed in order
+	setTimeout(() => {
+		console.log('free');
+	}, 500);
+	setTimeout(() => {
+		console.log('Code');
+	}, 1000);
+	setTimeout(() => {
+		console.log('Camp');
+	}, 1500);
+	//
+	const animationData = [
+		{
+			inputVal: 5,
+			marginTop: 300,
+			addElDelay: 1000,
+		},
+		{
+			inputVal: 2,
+			marginTop: -200,
+			addElDelay: 1500,
+		},
+		{
+			inputVal: 1,
+			marginTop: -200,
+			addElDelay: 2000,
+		},
+	];
+};

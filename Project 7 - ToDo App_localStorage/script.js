@@ -14,9 +14,14 @@ const cancelBtn = document.getElementById('cancel-btn');
 const discardBtn = document.getElementById('discard-btn');
 
 //task data array with task objects (store/manage task objects & save to local storage)
-const taskData = [];
+const taskData = JSON.parse(localStorage.getItem('data')) || [];
+// NOTE: needed to add if statement to fix issue of loading taskData when page first starts, not after a task is added IF there are tasks saved in localStorage
+if (taskData.length) {
+	updateTaskContainer();
+}
 //currentTask object to track/manage state
 let currentTask = {};
+
 //EVENT LISTENERS:
 //1. eventListeners to open/close form (modal) + cancelBtn + discardBtn
 openTaskFormBtn.addEventListener('click', () =>
@@ -102,6 +107,7 @@ const addOrUpdateTask = () => {
 	}
 	updateTaskContainer();
 	reset();
+	localStorage.setItem('data', JSON.stringify(taskData));
 };
 //2. add to DOM
 const updateTaskContainer = () => {
@@ -131,6 +137,8 @@ const deleteTask = (buttonEl) => {
 	//remove task from DOM and from array
 	buttonEl.parentElement.remove();
 	taskData.splice(dataArrIndex, 1);
+	//since you spliced task you don't use .removeItem just set localStorage to taskData again
+	localStorage.setItem('data', JSON.stringify(taskData));
 };
 const editTask = (buttonEl) => {
 	// find index (same as deleteTask step)
@@ -146,3 +154,15 @@ const editTask = (buttonEl) => {
 	taskForm.classList.toggle('hidden');
 	//make editTask functional (actually reflect when task is edited/submitted) by adding to addOrUpdateTask function in the else statement
 };
+//LOCAL STORAGE TESTING
+// const myTaskArr = [
+// 	{ task: 'Walk the Dog', date: '22-04-2022' },
+// 	{ task: 'Read some books', date: '02-11-2023' },
+// 	{ task: 'Watch football', date: '10-08-2021' },
+// ];
+//Using localStorage
+//localStorage.setItem("key", value);
+// localStorage.setItem('data', JSON.stringify(myTaskArr));
+// const getTaskArrObj = JSON.parse(localStorage.getItem('data'));
+// localStorage.removeItem('key');
+// localStorage.clear(); clear all items in the local storage.

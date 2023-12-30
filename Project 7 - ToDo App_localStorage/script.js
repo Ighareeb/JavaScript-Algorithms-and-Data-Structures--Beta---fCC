@@ -107,9 +107,19 @@ const updateTaskContainer = () => {
         <p><strong>Title:</strong> ${title}</p>
         <p><strong>Date:</strong> ${date}</p>
         <p><strong>Description:</strong> ${description}</p>
-        <button type="button" class="btn">Edit</button>
-        <button type="button" class="btn">Delete</button>
+        <button onclick="editTask(this)" type="button" class="btn">Edit</button>
+        <button onclick="deleteTask(this)" type="button" class="btn">Delete</button>
     </div>
     `),
 	);
+	// enable editing and deleting for each task, add an onclick attribute to both buttons. 'this' points to the element that triggers the event – the buttons.
 };
+//functions for onclick events Edit/DeleteBtns
+const deleteTask = (buttonEl) => {
+	//find the index of the task you want to delete first
+	//check if the id of item is equal to the id of the parentElement (taskObj id) of buttonEl
+	const dataArrIndex = taskData.findIndex(
+		(item) => item.id === buttonEl.parentElement.id,
+	);
+};
+const editTask = (buttonEl) => {};

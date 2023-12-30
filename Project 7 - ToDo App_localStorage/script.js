@@ -28,11 +28,16 @@ closeTaskFormBtn.addEventListener('click', () => {
 	//show cancel/discard buttons only if text is present in input fields
 	const formInputsContainValues =
 		titleInput.value || dateInput.value || descriptionInput.value;
-	if (formInputsContainValues) {
+	if (formInputsContainValues && formInputValuesUpdated) {
 		confirmCloseDialog.showModal();
 	} else {
 		reset();
 	}
+	// when edits the user decides not to submit so prevent display modal with Discard/CancelBtns
+	const formInputValuesUpdated =
+		titleInput.value !== currentTask.title ||
+		dateInput.value !== currentTask.date ||
+		descriptionInput.value !== currentTask.description;
 });
 // close() is a method of the window object you can use to close the current window, or a modal you create with the dialog element.
 cancelBtn.addEventListener('click', () => confirmCloseDialog.close());

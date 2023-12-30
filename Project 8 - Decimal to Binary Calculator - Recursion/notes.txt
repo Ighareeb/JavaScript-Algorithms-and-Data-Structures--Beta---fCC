@@ -22,3 +22,15 @@ Because bits are often grouped into bytes, it's common to see binary numbers rep
 
 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1
   0 |  0 |  1 |  1 | 0 | 1 | 0 | 0
+
+
+MORE EFFICIENT NON_RECURSIVE SOLUTION LOGIC - decimalToBinary() function
+Each time the while loop runs, input is the quotient of the previous value of input divided by 2, rounded down. Eventually, input is less than 1, and the loop stops running.
+You can do this in a single step.
+Inside your while loop, set input equal to the quotient of input divided by 2. Also, remember to use Math.floor() to round the quotient down.
+
+In previous non-recursive version, you pushed the remainder of input divided by 2 to binaryArray. Then later you reversed and joined the entries into a binary number string.
+But it would be easier to use string concatenation within the loop to build the binary string from right to left, so you won't need to reverse it later.
+First, use the remainder operator (%) to set binary equal to the remainder of input divided by 2.
+
+

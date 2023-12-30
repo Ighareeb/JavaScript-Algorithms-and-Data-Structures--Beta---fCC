@@ -15,32 +15,43 @@ const checkUserInput = () => {
 	numberInput.value = '';
 };
 //For the binary to decimal conversion, you need to divide input by 2 until the quotient, or the result of dividing two numbers, is 0. Use a while loop to run a block of code as long as input is greater than 0 and can be divided.
+//NON_RECURSIVE SOLUTION
+// const decimalToBinary = (input) => {
+// 	const inputs = [];
+// 	const quotients = [];
+// 	const remainders = [];
+// 	//NOTE because of while condition functiononly works with numbers > 0
+// 	// add if statements to accept input of 0
+// 	if (input === 0) {
+// 		result.innerText = '0';
+// 		return;
+// 	}
+// 	while (input > 0) {
+// 		const quotient = Math.floor(input / 2);
+// 		const remainder = input % 2;
+// 		inputs.push(input);
+// 		quotients.push(quotient);
+// 		remainders.push(remainder);
+// 		input = quotient; //lowers value of input to prevent infinite while loop
+// 		console.log(`Inputs: ${inputs}`);
+// 		console.log('Quotients: ', quotients);
+// 		console.log('Remainders: ', remainders);
+// 		//NOTE: the remainders array is reversed order binary representation of the input so we can use it in the following logic
+// 		result.innerText = remainders.reverse().join('');
+// 	}
+// };
+//MORE EFFICIENT NON_RECURSIVE SOLUTION
 const decimalToBinary = (input) => {
-	const inputs = [];
-	const quotients = [];
-	const remainders = [];
-	//non-recursive solution
-	//NOTE because of while condition functiononly works with numbers > 0
-	// add if statements to accept input of 0
+	let binary = '';
 	if (input === 0) {
-		result.innerText = '0';
-		return;
+		binary = '0';
 	}
 	while (input > 0) {
-		const quotient = Math.floor(input / 2);
-		const remainder = input % 2;
-		inputs.push(input);
-		quotients.push(quotient);
-		remainders.push(remainder);
-		input = quotient; //lowers value of input to prevent infinite while loop
-		console.log(`Inputs: ${inputs}`);
-		console.log('Quotients: ', quotients);
-		console.log('Remainders: ', remainders);
-		//NOTE: the remainders array is reversed order binary representation of the input so we can use it in the following logic
-		result.innerText = remainders.reverse().join('');
+		input = Math.floor(input / 2); //quotient
+		binary = (input % 2) + binary; //remainder + '' i.e converts/concatenates remainder into the binary string
 	}
+	result.innerText = binary;
 };
-
 //
 //eventListeners for submitting user input
 convertBtn.addEventListener('click', checkUserInput);

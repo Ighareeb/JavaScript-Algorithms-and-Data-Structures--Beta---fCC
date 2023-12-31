@@ -9,3 +9,18 @@ A selection sort relies on tracking the index of the smallest value in the array
 Also needs an outer + nested inner loop. inner loop needs to start to the index AFTER i 
 (let j = i + 1)
 The inner loop  iterates over the unsorted part of the array and finds the index (minIndex) of the smallest element. After the inner loop, the smallest element (located at minIndex) is swapped with the first unsorted element (located at i). This process is repeated until the entire array is sorted.
+
+3. INSERTION SORT - 
+An insertion sort algorithm starts the sort at the beginning of the list, meaning the first element is already sorted. 
+a)With this in mind, create a for loop that starts at the second element in the array (let i = 1) - it should still iterate through the rest of the array.
+b)For this algorithm, you'll want to use a while loop. This loop needs two conditions:
+First, it should not run beyond the beginning of the array (accessed with j).
+Second, the loop should not run after it finds a value smaller than the current value.
+
+c)To prevent an infinite loop, decrement j inside your loop.
+d)On each iteration of your while loop, it is finding an element that is larger than your current value. You need to move that element to the right to make room for your current value.
+
+Do so by assigning the value at the j index to the next index.
+array[j + 1] = array[j]; 
+This line of code will move the value at index j to the next position in the array (j + 1). After this operation, you can safely decrement j for the next iteration or operation.
+e)After your while loop, you need to insert your current value. Remember that your loop ends when j is either out of the array bounds, or when the value at j is less than your current value.

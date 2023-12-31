@@ -10,7 +10,8 @@ const sortInputArray = (event) => {
 	].map((dropdown) => Number(dropdown.value));
 	//
 	// const sortedValues = bubbleSort(inputValues);
-	const sortedValues = selectionSort(inputValues);
+	// const sortedValues = selectionSort(inputValues);
+	// const sortedValues = insertionSort(inputValues);
 	// call function to display output using sortedValues array as argument
 	updateUI(sortedValues);
 };
@@ -41,23 +42,36 @@ const updateUI = (array = []) => {
 // };
 //---------------------------------------------------
 // 2. SELECTION SORT
-const selectionSort = (array) => {
-	for (let i = 0; i < array.length; i++) {
-		let minIndex = i;
-		for (let j = i + 1; j < array.length; j++) {
-			//!!*console.log for debugging + shows how selection sort works*!!
-			console.log(array, array[j], array[minIndex]);
-			if (array[j] < array[minIndex]) {
-				minIndex = j;
-			}
+// const selectionSort = (array) => {
+// 	for (let i = 0; i < array.length; i++) {
+// 		let minIndex = i;
+// 		for (let j = i + 1; j < array.length; j++) {
+// 			//!!*console.log for debugging + shows how selection sort works*!!
+// 			console.log(array, array[j], array[minIndex]);
+// 			if (array[j] < array[minIndex]) {
+// 				minIndex = j;
+// 			}
+// 		}
+// 		const temp = array[i];
+// 		array[i] = array[minIndex];
+// 		array[minIndex] = temp;
+// 	}
+// 	return array;
+// };
+//---------------------------------------------------
+// 3. INSERTION SORT
+const insertionSort = (array) => {
+	for (let i = 1; i < array.length; i++) {
+		const currValue = array[i];
+		let j = i - 1;
+		while (j >= 0 && array[j] > currValue) {
+			array[j + 1] = array[j];
+			console.log(array, array[j], currValue);
+			j--; //so trails behind i which starts at index 1 and i++s
 		}
-		const temp = array[i];
-		array[i] = array[minIndex];
-		array[minIndex] = temp;
+		array[j + 1] = currValue;
 	}
 	return array;
 };
-//---------------------------------------------------
-// 3. INSERTION SORT
 //test code while writing
 sortButton.addEventListener('click', sortInputArray);

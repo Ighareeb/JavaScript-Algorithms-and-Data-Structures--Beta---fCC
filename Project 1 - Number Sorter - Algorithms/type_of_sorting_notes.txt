@@ -1,0 +1,11 @@
+USE THE CONSOLE LOGS TO VISUALISE THE SORTING PROCESS!!!
+
+1. BUBBLE SORT - function to sort input array using bubble sort - starts at the beginning of the array and 'bubbles up' unsorted values towards the end, iterating through the array until it is completely sorted.
+Because you need to compare elements you need to use an outer+inner(nested) for loop to iterate through every element EXCEPT the last one.
+The inner loop takes (N-1) iterations while the outer loop takes N iterations. Hence, the Big-O runtime for the algorithm is the product of O(N) and O(N-1), which is O(N^2)
+
+2. SELECTION SORT - works by finding the smallest value in the array, then swapping it with the first value in the array. Then, it finds the next smallest value in the array, and swaps it with the second value in the array. It continues iterating through the array until it is completely sorted.
+A selection sort relies on tracking the index of the smallest value in the array. Declare a variable minIndex  inside the for loop and set it to i - this ensures that if your current value is the smallest, it will be swapped with itself and not be moved. You will need to be able to reassign the value of minIndex as you iterate through the array.
+Also needs an outer + nested inner loop. inner loop needs to start to the index AFTER i 
+(let j = i + 1)
+The inner loop  iterates over the unsorted part of the array and finds the index (minIndex) of the smallest element. After the inner loop, the smallest element (located at minIndex) is swapped with the first unsorted element (located at i). This process is repeated until the entire array is sorted.

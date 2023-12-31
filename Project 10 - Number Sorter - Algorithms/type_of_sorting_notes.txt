@@ -9,6 +9,7 @@ A selection sort relies on tracking the index of the smallest value in the array
 Also needs an outer + nested inner loop. inner loop needs to start to the index AFTER i 
 (let j = i + 1)
 The inner loop  iterates over the unsorted part of the array and finds the index (minIndex) of the smallest element. After the inner loop, the smallest element (located at minIndex) is swapped with the first unsorted element (located at i). This process is repeated until the entire array is sorted.
+*-->O(n^2) runtime
 
 3. INSERTION SORT - 
 An insertion sort algorithm starts the sort at the beginning of the list, meaning the first element is already sorted. 
@@ -33,3 +34,4 @@ To fix this, you can pass a callback function to the .sort() method. The callbac
 If the number is negative, sort a before b.
 If the number is positive, sort b before a.
 If the number is zero, do not change the order of a and b.
+*--> O(n) in the best case, it performs at O(n2) in the average and worst case

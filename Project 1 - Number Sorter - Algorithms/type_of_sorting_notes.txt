@@ -24,3 +24,12 @@ Do so by assigning the value at the j index to the next index.
 array[j + 1] = array[j]; 
 This line of code will move the value at index j to the next position in the array (j + 1). After this operation, you can safely decrement j for the next iteration or operation.
 e)After your while loop, you need to insert your current value. Remember that your loop ends when j is either out of the array bounds, or when the value at j is less than your current value.
+
+4. array.sort() method
+NOTE: sorting this way only works on single digits without added logic.
+This is because the default behavior of 
+.sort() is to convert the values to strings, and sort them alphabetically. And 10 comes before 2 alphabetically.
+To fix this, you can pass a callback function to the .sort() method. The callback function takes two arguments - for yours, use a and b. 
+If the number is negative, sort a before b.
+If the number is positive, sort b before a.
+If the number is zero, do not change the order of a and b.

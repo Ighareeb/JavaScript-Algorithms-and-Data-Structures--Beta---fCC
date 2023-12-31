@@ -8,10 +8,13 @@ const sortInputArray = (event) => {
 	const inputValues = [
 		...document.getElementsByClassName('values-dropdown'),
 	].map((dropdown) => Number(dropdown.value));
-	//
+	// TYPES OF SORTING
 	// const sortedValues = bubbleSort(inputValues);
 	// const sortedValues = selectionSort(inputValues);
 	// const sortedValues = insertionSort(inputValues);
+	const sortedValues = inputValues.sort((a, b) => {
+		return a - b;
+	});
 	// call function to display output using sortedValues array as argument
 	updateUI(sortedValues);
 };

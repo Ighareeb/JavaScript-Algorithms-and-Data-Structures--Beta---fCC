@@ -35,3 +35,24 @@ const charRange = (start, end) =>
 	range(start.charCodeAt(0), end.charCodeAt(0)).map((code) =>
 		String.fromCharCode(code),
 	);
+//---------------------------------
+// SPREAD SHEET FUNCTIONS
+//---------------------------------
+//1. SUM
+const sum = (nums) => nums.reduce((acc, curr) => acc + curr, 0);
+//2. CHECK IF NUMBER IS EVEN/ODD
+const isEven = (num) => num % 2 === 0;
+//3. AVERAGE
+const average = (nums) => sum(nums) / nums.length;
+//4. MEDIAN
+const median = (nums) => {
+	//a) create shallow copy so you don't mutate original array, then sort in ascending order
+	const sorted = nums.slice().sort((a, b) => a - b);
+	//b) declare variable for array length and length at middle
+	const length = sorted.length;
+	const middle = length / 2 - 1;
+	//c) check if length is even or odd and set logic accordingly (odd = middle number, even = average of two middle numbers)
+	return isEven(length)
+		? average([sorted[middle], sorted[middle + 1]])
+		: sorted[Math.ceil(middle)];
+};

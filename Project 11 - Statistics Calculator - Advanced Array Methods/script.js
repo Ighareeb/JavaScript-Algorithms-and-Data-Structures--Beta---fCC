@@ -12,10 +12,13 @@ const calculate = () => {
 	const filteredNumArr = arrayStr
 		.map((str) => Number(str))
 		.filter((num) => !Number.isNaN(num));
-	//------------------defined statistics functions nested in calculate()-------------------
+	//------------------calling defined statistics functions in calculate()-------------------
 	//1.MEAN - call + display output
 	const mean = getMean(filteredNumArrArray);
 	document.querySelector('#mean').textContent = mean;
+	//1.MEDIAN - call + display output
+	const median = getMedian(filteredNumArrArray);
+	document.querySelector('#median').textContent = median;
 };
 //
 //-------------------------STATISTICS FUNCTIONS------------------
@@ -30,3 +33,17 @@ const getMean = (array) => {
 // //refactored
 // const getMean = (array) =>
 // 	array.reduce((acc, el) => acc + el, 0) / array.length;
+//
+//2. MEDIAN - midpoint of a set of numbers. IMP! - numbers must be sorted in ascending order
+const getMedian = (array) => {
+	//sort in ascending order
+	const sorted = array.sort((a, b) => {
+		return a - b;
+	});
+	//find mid-point number - if odd dataset then middle = median. If even data set then average of two middle numbers = meidan
+	const median =
+		array.length % 2 === 0
+			? getMean([sorted[array.length / 2], sorted[array.length / 2 - 1]])
+			: sorted[Math.floor(array.length / 2)];
+	return median;
+};

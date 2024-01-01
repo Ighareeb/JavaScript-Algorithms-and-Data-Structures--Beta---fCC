@@ -25,9 +25,12 @@ const calculate = () => {
 	//4.RANGE - call + display output
 	const range = getRange(filteredNumArrArray);
 	document.querySelector('#range').textContent = range;
-	//4.VARIANCE - call + display output
+	//5.VARIANCE - call + display output
 	const variance = getVariance(filteredNumArrArray);
 	document.querySelector('#variance').textContent = variance;
+	//6.STANDARD DEVIATION - call + display output
+	const standardDeviation = getStandardDeviation(filteredNumArrArray);
+	document.querySelector('#standardDeviation').textContent = standardDeviation;
 };
 //
 //-------------------------STATISTICS FUNCTIONS------------------
@@ -106,4 +109,14 @@ const getVariance = (array) => {
 	// 	return acc + squared;
 	// }, 0) / array.length;
 	return variance;
+};
+//
+// 6. STANDARD DEVIATION - the square root of the variance
+const getStandardDeviation = (array) => {
+	const variance = getVariance(array);
+	//using Math.pow() with an inverted exponent (x^{1/n}) to calculate a root exponent (sqrt[n]{x})
+	const standardDeviation = Math.pow(variance, 1 / 2);
+	//OR using Math.sqrt() method
+	const standardDeviationV2 = Math.sqrt(variance);
+	return standardDeviation;
 };

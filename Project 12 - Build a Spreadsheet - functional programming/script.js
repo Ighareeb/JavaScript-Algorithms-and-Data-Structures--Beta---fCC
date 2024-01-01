@@ -6,6 +6,22 @@ window.onload = () => {
 		label.textContent = name;
 		container.appendChild(label);
 	};
+	//generate letters on top of spreadsheet using createLabel as callback in .map {cols}
+	const letters = charRange('A', 'J');
+	letters.forEach(createLabel);
+	//created range of numbers and again used createLabel inside callback function to generate range of numbers in spreadsheet {rows}
+	range(1, 99).forEach((number) => {
+		createLabel(number);
+
+		//this adds spread sheet cells (input cells) with id = col-letter + row-number
+		letters.forEach((letter) => {
+			const input = document.createElement('input');
+			input.type = 'text';
+			input.id = letter + number;
+			input.ariaLabel = letter + number;
+			container.appendChild(input);
+		});
+	});
 };
 
 //function to generate an Array of numbers for a given range (start-end)

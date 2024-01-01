@@ -25,6 +25,9 @@ const calculate = () => {
 	//4.RANGE - call + display output
 	const range = getRange(filteredNumArrArray);
 	document.querySelector('#range').textContent = range;
+	//4.VARIANCE - call + display output
+	const variance = getVariance(filteredNumArrArray);
+	document.querySelector('#variance').textContent = variance;
 };
 //
 //-------------------------STATISTICS FUNCTIONS------------------
@@ -79,4 +82,28 @@ const getMode = (array) => {
 // 4. RANGE - the difference between the largest and smallest numbers in the list - use Math.min()/max() methods
 const getRange = (array) => {
 	return Math.max(...array) - Math.min(...array);
+};
+//
+// 5. VARIANCE - the average of the squared differences from the mean
+//The variance of a series represents how much the data deviates from the mean, and can be used to determine how spread out the data are.
+const getVariance = (array) => {
+	const mean = getMean(array);
+	//<a> calculate how far each element is from the mean.
+	const differences = array.map((num) => num - mean);
+	//<b> square each of the differences
+	const squaredDifferences = differences.map((num) => num ** 2);
+	//<c> sum the squared differences
+	const sumSquaredDifferences = squaredDifferences.reduce(
+		(acc, num) => acc + num,
+		0,
+	);
+	//<d> divide the sum of the squared differences by the count of numbers
+	const variance = sumSquaredDifferences / array.length;
+	// Refactor - chain methods
+	// const variance = array.reduce((acc, el) => {
+	// 	const difference = el - mean;
+	// 	const squared = difference ** 2;
+	// 	return acc + squared;
+	// }, 0) / array.length;
+	return variance;
 };

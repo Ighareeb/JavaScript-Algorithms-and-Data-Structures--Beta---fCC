@@ -19,6 +19,7 @@ window.onload = () => {
 			input.type = 'text';
 			input.id = letter + number;
 			input.ariaLabel = letter + number;
+			input.onchange = update; //connect to update function to use spreadsheet functions stored in object
 			container.appendChild(input);
 		});
 	});
@@ -56,3 +57,21 @@ const median = (nums) => {
 		? average([sorted[middle], sorted[middle + 1]])
 		: sorted[Math.ceil(middle)];
 };
+//---------------------------------
+// object to hold spreadsheet functions
+const spreadsheetFunctions = {
+	sum,
+	average,
+	median,
+};
+//start spreadsheet functions declaring new function:
+const update = (event) => {
+	const element = event.target;
+	const value = element.value.replace(/\s/g, ''); //remove white space from input value
+	//check if value does NOT include {id} of the element + if first char of value is {=} <value.charAt(0), value.startsWith('=')>
+	if (!value.includes(element.id) && value[0] === '=') {
+	}
+};
+//*Spreadsheet software typically uses = at the beginning of a cell to indicate a calculation should be used, and spreadsheet functions should be evaluated.
+//
+//In order to run your spreadsheet functions, you need to be able to parse and evaluate the input string.

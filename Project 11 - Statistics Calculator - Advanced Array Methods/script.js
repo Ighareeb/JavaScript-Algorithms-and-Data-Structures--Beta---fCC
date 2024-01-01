@@ -48,8 +48,8 @@ const getMean = (array) => {
 //
 //2. MEDIAN - midpoint of a set of numbers. IMP! - numbers must be sorted in ascending order
 const getMedian = (array) => {
-	//sort in ascending order
-	const sorted = array.sort((a, b) => {
+	//sort in ascending order; .slice to create shallow copy so original array is not mutated (sort in place method)
+	const sorted = array.slice().sort((a, b) => {
 		return a - b;
 	});
 	//find mid-point number - if odd dataset then middle = median. If even data set then average of two middle numbers = meidan

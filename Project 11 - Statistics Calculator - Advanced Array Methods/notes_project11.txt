@@ -6,3 +6,22 @@ const array = value.split(/,\s*/g);
 example
 let value = "1, 2, 3,4,5, 6";
 console.log(array); // Output: ["1", "2", "3", "4", "5", "6"]
+
+SHALLOW vs DEEP COPY
+A shallow copy of an object is a copy where the copied object and the original object share the same nested objects. This means that if you modify a nested object in the copied object, the same nested object in the original object will also be modified.
+
+A deep copy of an object is a copy where the copied object and the original object do not share any objects. This means that if you modify a nested object in the copied object, the same nested object in the original object will not be modified.
+let original = { a: 1, b: { c: 2 } };
+
+// Shallow copy
+let shallowCopy = { ...original };
+shallowCopy.b.c = 3;
+console.log(original.b.c); // Outputs: 3
+
+// Deep copy
+let deepCopy = JSON.parse(JSON.stringify(original));
+deepCopy.b.c = 4;
+console.log(original.b.c); // Outputs: 3
+(JSON.stringify(original): This part of the code converts the original object into a JSON string. This process involves converting the object's properties and values into a string format that can be stored or transmitted and later parsed and restored into an object with the original properties and values.
+
+JSON.parse(...): This part of the code takes the JSON string produced by JSON.stringify(original) and converts it back into a JavaScript object.)

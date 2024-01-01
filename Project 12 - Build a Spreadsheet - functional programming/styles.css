@@ -1,0 +1,18 @@
+#container {
+	display: grid;
+	grid-template-columns: 50px repeat(10, 200px);
+	grid-template-rows: repeat(11, 30px);
+}
+
+.label {
+	background-color: lightgray;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
+}
+
+/* grid-template-columns: 50px repeat(10, 200px);
+-->This line is defining the columns of the grid. The first column will be 50px wide. The repeat(10, 200px) function is saying that the next 10 columns should each be 200px wide. 
+grid-template-rows: repeat(11, 30px);
+-->This line is defining the rows of the grid. The repeat(11, 30px) function is saying that there should be 11 rows each of 30px height. 
+=== Grid layout with 11 columns (1 of 50px and 10 of 200px) and 11 rows each of 30px. */

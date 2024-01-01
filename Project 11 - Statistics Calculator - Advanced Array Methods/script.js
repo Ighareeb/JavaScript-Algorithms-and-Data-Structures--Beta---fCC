@@ -22,6 +22,9 @@ const calculate = () => {
 	//3.MODE - call + display output
 	const mode = getMode(filteredNumArrArray);
 	document.querySelector('#mode').textContent = mode;
+	//4.RANGE - call + display output
+	const range = getRange(filteredNumArrArray);
+	document.querySelector('#range').textContent = range;
 };
 //
 //-------------------------STATISTICS FUNCTIONS------------------
@@ -71,4 +74,9 @@ const getMode = (array) => {
 	);
 	//mode is an array, so return it as a string with the .join() method. Separate the elements with a comma followed by a space.
 	return mode.join(', ');
+};
+//
+// 4. RANGE - the difference between the largest and smallest numbers in the list - use Math.min()/max() methods
+const getRange = (array) => {
+	return Math.max(...array) - Math.min(...array);
 };

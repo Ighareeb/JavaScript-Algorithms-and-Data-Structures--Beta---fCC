@@ -75,3 +75,28 @@ const update = (event) => {
 //*Spreadsheet software typically uses = at the beginning of a cell to indicate a calculation should be used, and spreadsheet functions should be evaluated.
 //
 //In order to run your spreadsheet functions, you need to be able to parse and evaluate the input string.
+const evalFormula = (x, cells) => {
+	//idToText return an input element, add .value to have it return value of that input element that match id passed as argument
+	const idToText = (id) => cells.find((cell) => cell.id === id).value;
+	//also need to be able to match cell ranges in a formula (eg A1:B12) use regex to match pattern to check //cols regex then row regex then numbers - must have two character classes but the second digit is optional + separate start : end with colon
+	const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;
+	//generate an Array of numbers for a given cell range.
+	const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));
+	//CURRYING - elemValue takes ones argument - returns another function which also takes one argument + returns result of calling idToText with arguments passed from parents. Currying is the technique of converting a function that takes multiple arguments into a sequence of functions that each take one argument.
+	//This is possible because functions have access to all variables declared at their creation. This is called closure.
+	//example 1 explicit return of function
+	const elemValue = (num) => {
+		const inner = (character) => {
+			return idToText(character + num);
+		};
+		return inner;
+	};
+	//example 1 implicit return of function
+	// const elemValue = (num) => (character) => idToText(character + num);
+	//
+	//example 2 implicit return of function
+	//addCharacters function ultimately returns a range of characters. You want it to return an array of cell ids.
+	//Because elemValue returns a function (idToText), your addChars function ultimately returns an array of function references. You want the .map() method to run the inner function of your elemValue function, which means you need to call elemValue instead of reference it. Pass num as the argument to your elemValue function.
+	const addCharacters = (character1) => (character2) => (num) =>
+		charRange(character1, character2).map(elemValue(num));
+};

@@ -25,3 +25,8 @@ range(start.charCodeAt(0), end.charCodeAt(0)): This calls the range function wit
 
 The String.fromCharCode(code) method in JavaScript is used to create a string from a sequence of Unicode values.
 if range function returns an array of Unicode values, then String.fromCharCode(code) could be used to convert each Unicode value in that array back into a character, creating a range of characters.
+
+///
+CURRYING is a technique in functional programming where a function with multiple arguments is transformed into a sequence of functions, each with a single argument. More specifically, a function that takes n arguments is turned into n functions, each taking a single argument.
+This is possible because functions have access to all variables declared at their creation. This is called closure.
+You explicitly declared a function called inner and returned it. However, because you are using arrow syntax, you can implicitly return a function

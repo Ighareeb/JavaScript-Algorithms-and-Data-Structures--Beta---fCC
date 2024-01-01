@@ -1,0 +1,27 @@
+The Array() constructor has a Array.fill(value, start, end) method which can be used to fill an array with a value. You can use this to fill your array with the start value.
+value
+Value to fill the array with. Note all elements in the array will be this exact value: if value is an object, each slot in the array will reference that object.
+
+start Optional
+Zero-based index at which to start filling, converted to an integer.
+Negative index counts back from the end of the array — if start < 0, start + array.length is used.
+If start < -array.length or start is omitted, 0 is used.
+If start >= array.length, no index is filled.
+
+end Optional
+Zero-based index at which to end filling, converted to an integer. fill() fills up to but not including end.
+Negative index counts back from the end of the array — if end < 0, end + array.length is used.
+If end < -array.length, 0 is used.
+If end >= array.length or end is omitted, array.length is used, causing all indices until the end to be filled.
+If end is positioned before or at start after normalization, no index is filled.
+--------------------------------------------------------------
+//note: Characters in a string are indexed from left to right. The index of the first character is 0, and the index of the last character in a string called str is str.length - 1
+charRange() function explained
+start.charCodeAt(0): This gets the Unicode value (a number) of the first character of the start string.
+
+end.charCodeAt(0): This gets the Unicode value of the first character of the end string.
+
+range(start.charCodeAt(0), end.charCodeAt(0)): This calls the range function with the Unicode values of the start and end characters. The range function is expected to return an array of numbers from the start value to the end value.
+
+The String.fromCharCode(code) method in JavaScript is used to create a string from a sequence of Unicode values.
+if range function returns an array of Unicode values, then String.fromCharCode(code) could be used to convert each Unicode value in that array back into a character, creating a range of characters.

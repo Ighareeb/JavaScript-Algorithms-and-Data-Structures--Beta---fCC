@@ -16,9 +16,12 @@ const calculate = () => {
 	//1.MEAN - call + display output
 	const mean = getMean(filteredNumArrArray);
 	document.querySelector('#mean').textContent = mean;
-	//1.MEDIAN - call + display output
+	//2.MEDIAN - call + display output
 	const median = getMedian(filteredNumArrArray);
 	document.querySelector('#median').textContent = median;
+	//3.MODE - call + display output
+	const mode = getMode(filteredNumArrArray);
+	document.querySelector('#mode').textContent = mode;
 };
 //
 //-------------------------STATISTICS FUNCTIONS------------------
@@ -46,4 +49,26 @@ const getMedian = (array) => {
 			? getMean([sorted[array.length / 2], sorted[array.length / 2 - 1]])
 			: sorted[Math.floor(array.length / 2)];
 	return median;
+};
+//
+// 3. MODE - the number that appears most often in the list
+//**!caveat case - if every value appears same # of times there is no mean. Use a Set data structure (new Set() -constructor) (only allows unique values) to remove duplicate values and check. If Set.size === 1 each value appears same # of times.
+const getMode = (array) => {
+	//counts object to track # times each number appears in the dataset
+	const counts = {};
+	array.forEach((num) => {
+		counts[num] = (counts[num] || 0) + 1;
+	});
+	//**!
+	if (new Set(Object.values(counts)).size === 1) {
+		return null;
+	}
+	//find value with highest frequency + ...
+	const highest = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+	//check if multiple values have highest frequency (all will be = mode)
+	const mode = Object.keys(counts).filter(
+		(num) => counts[num] === counts[highest],
+	);
+	//mode is an array, so return it as a string with the .join() method. Separate the elements with a comma followed by a space.
+	return mode.join(', ');
 };

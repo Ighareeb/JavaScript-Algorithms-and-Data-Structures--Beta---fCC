@@ -120,3 +120,27 @@ const evalFormula = (x, cells) => {
 		idToText(match.toUpperCase()),
 	);
 };
+//----------
+//infix = mathematical operator that appears between its two operands eg. 1 + 2 infix expression.
+//to parse the expressions map the symbols to their corresponding functions
+const infixToFunction = {
+	'+': (x, y) => x + y,
+	'-': (x, y) => x - y,
+	'*': (x, y) => x * y,
+	'/': (x, y) => x / y,
+};
+//Using infix functions declared you need to evaluate them:
+// note - The regex needs to match two numbers with an operator between them.
+// note - infixToFunction[operator] returns a function. Call function directly, passing arg1, arg2 !* they are string so you need to convert (parseFloat()) them to numbers
+const infixEval = (str, regex) =>
+	str.replace(regex, (_match, arg1, operator, arg2) =>
+		infixToFunction[operator](parseFloat(arg1), parseFloat(arg2)),
+	);
+//you need to account for order of operations.
+const highPrecedence = (str) => {
+	const regex = /([\d.]+)([*\/])([\d.]+)/;
+	const str2 = infixEval(str, regex);
+	//Your infixEval function will only evaluate the first * / operation, because regex isn't global.need to use a recursive approach to evaluate the entire string.
+	// If infixEval does not find any matches, it will return the str value as-is. Use ternary to  check if str2 === str. If it is, return str, otherwise return the result of calling highPrecedence() on str2.
+	return str === str2 ? str : highPrecedence(str2);
+};

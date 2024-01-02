@@ -30,3 +30,5 @@ if range function returns an array of Unicode values, then String.fromCharCode(c
 CURRYING is a technique in functional programming where a function with multiple arguments is transformed into a sequence of functions, each with a single argument. More specifically, a function that takes n arguments is turned into n functions, each taking a single argument.
 This is possible because functions have access to all variables declared at their creation. This is called closure.
 You explicitly declared a function called inner and returned it. However, because you are using arrow syntax, you can implicitly return a function
+//
+In mathematics, an infix is a mathematical operator that appears between its two operands. For example, 1 + 2 is an infix expression.

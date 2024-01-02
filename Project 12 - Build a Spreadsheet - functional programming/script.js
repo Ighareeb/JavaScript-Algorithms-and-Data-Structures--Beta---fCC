@@ -64,6 +64,7 @@ const spreadsheetFunctions = {
 	average,
 	median,
 };
+//UPDATE & EVALFORMULA FUNCTIONS(+helper functions: idToText, rangeFromString, elemValue, addCharacters)
 //start spreadsheet functions declaring new function:
 const update = (event) => {
 	const element = event.target;
@@ -75,15 +76,18 @@ const update = (event) => {
 //*Spreadsheet software typically uses = at the beginning of a cell to indicate a calculation should be used, and spreadsheet functions should be evaluated.
 //
 //In order to run your spreadsheet functions, you need to be able to parse and evaluate the input string.
+//{x} = string representing a formula to be evaluated, {cells} = array of cell objects, each with an id and value property.
 const evalFormula = (x, cells) => {
 	//idToText return an input element, add .value to have it return value of that input element that match id passed as argument
 	const idToText = (id) => cells.find((cell) => cell.id === id).value;
+	//
 	//also need to be able to match cell ranges in a formula (eg A1:B12) use regex to match pattern to check //cols regex then row regex then numbers - must have two character classes but the second digit is optional + separate start : end with colon
 	const rangeRegex = /([A-J])([1-9][0-9]?):([A-J])([1-9][0-9]?)/gi;
 	//generate an Array of numbers for a given cell range.
 	const rangeFromString = (num1, num2) => range(parseInt(num1), parseInt(num2));
+	//
 	//CURRYING - elemValue takes ones argument - returns another function which also takes one argument + returns result of calling idToText with arguments passed from parents. Currying is the technique of converting a function that takes multiple arguments into a sequence of functions that each take one argument.
-	//This is possible because functions have access to all variables declared at their creation. This is called closure.
+	//This is possible because functions have access to all variables declared at their creation = *CLOSURE*.
 	//example 1 explicit return of function
 	const elemValue = (num) => {
 		const inner = (character) => {
@@ -99,4 +103,20 @@ const evalFormula = (x, cells) => {
 	//Because elemValue returns a function (idToText), your addChars function ultimately returns an array of function references. You want the .map() method to run the inner function of your elemValue function, which means you need to call elemValue instead of reference it. Pass num as the argument to your elemValue function.
 	const addCharacters = (character1) => (character2) => (num) =>
 		charRange(character1, character2).map(elemValue(num));
+	//
+	//MAIN RESULT VARIABLES USING HELPER FUNCTION DECLARED above
+	//note1: Your addCharacters(char1) returns a function, which returns another function. You need to make another function call to access that innermost function reference for the .map() callbackby chaining directly after the first addCharacters(char1)(char2) -- so it will iterate over the elements and pass each to the .map()
+	//note2it is common convention to prefix an unused parameter with an underscore {_match}
+	// rangeExpanded = for each cellrange string in x, this code generates an array of cellvalues corresponding to the range, and replaces the cell range string with these cell values.
+	const rangeExpanded = x.replace(
+		rangeRegex,
+		(_match, char1, num1, char2, num2) =>
+			rangeFromString(num1, num2).map(addCharacters(char1)(char2)),
+	);
+	//
+	//Declare a variable cellRegex to match cell references
+	const cellRegex = /[A-J][1-9][0-9]?/gi;
+	const cellExpanded = rangeExpanded.replace(cellRegex, (match) =>
+		idToText(match.toUpperCase()),
+	);
 };

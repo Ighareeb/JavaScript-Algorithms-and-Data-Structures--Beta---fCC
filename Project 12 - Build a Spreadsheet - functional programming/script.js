@@ -144,3 +144,22 @@ const highPrecedence = (str) => {
 	// If infixEval does not find any matches, it will return the str value as-is. Use ternary to  check if str2 === str. If it is, return str, otherwise return the result of calling highPrecedence() on str2.
 	return str === str2 ? str : highPrecedence(str2);
 };
+//-------------
+//start applying your function parsing logic to a string.
+const applyFunction = (str) => {
+	//1) handle the higher precedence operators.
+	const noHigh = highPrecedence(str);
+	//2)parse and evaluate + - like with * / previously
+	const infix = /([\d.]+)([+-])([\d.]+)/;
+	const str2 = infixEval(noHigh, infix);
+	const functionCall = /([a-z]*)\(([0-9., ]*)\)(?!.*\()/i; //This expression will look for function calls like sum(1, 4)
+	const toNumberList = (args) => args.split(',').map(parseFloat); //takes a string of comma-separated values as an argument and converts it into an array of numbers.
+	const apply = (fn, args) =>
+		spreadsheetFunctions[fn.toLowerCase()](toNumberList(args)); //The fn parameter == name of a function, such as SUM -returns the function found at the fn property of your spreadsheetFunctions object + calls it with the args number list created from toNumberList() function
+	//(applyFunction returns)
+	return str2.replace(functionCall, (match, fn, args) =>
+		spreadsheetFunctions.hasOwnProperty(fn.toLowerCase())
+			? apply(fn, args)
+			: match,
+	);
+};

@@ -71,6 +71,11 @@ const update = (event) => {
 	const value = element.value.replace(/\s/g, ''); //remove white space from input value
 	//check if value does NOT include {id} of the element + if first char of value is {=} <value.charAt(0), value.startsWith('=')>
 	if (!value.includes(element.id) && value[0] === '=') {
+		//The first argument for your evalFormula call needs to be the contents of the cell (which you stored in value). However, the contents start with an = character to trigger the function, so you need to pass the substring of value starting at index 1. + get all cells from #container element by accessing children prop (needs to be converted from HTMLcollection to an array)
+		element.value = evalFormula(
+			value.slice(1),
+			Array.from(document.getElementById('container').children),
+		);
 	}
 };
 //*Spreadsheet software typically uses = at the beginning of a cell to indicate a calculation should be used, and spreadsheet functions should be evaluated.
@@ -119,6 +124,11 @@ const evalFormula = (x, cells) => {
 	const cellExpanded = rangeExpanded.replace(cellRegex, (match) =>
 		idToText(match.toUpperCase()),
 	);
+	//start applying your function parser to your evalFormula logic
+	const functionExpanded = applyFunction(cellExpanded); //(ensure it has evaluated and replaced everything.)
+	return functionExpanded === x
+		? functionExpanded
+		: evalFormula(functionExpanded, cells);
 };
 //----------
 //infix = mathematical operator that appears between its two operands eg. 1 + 2 infix expression.

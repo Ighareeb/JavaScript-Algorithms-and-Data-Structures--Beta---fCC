@@ -63,6 +63,17 @@ const spreadsheetFunctions = {
 	sum,
 	average,
 	median,
+	even: (nums) => nums.filter(isEven),
+	someeven: (nums) => nums.some(isEven),
+	everyeven: (nums) => nums.every(isEven),
+	firsttwo: (nums) => nums.slice(0, 2),
+	lasttwo: (nums) => nums.slice(-2),
+	has2: (nums) => nums.includes(2),
+	increment: (nums) => nums.map((num) => num + 1),
+	random: ([x, y]) => Math.floor(Math.random() * x + y), //takes the first two numbers from an array and returns a random number between them
+	range: (nums) => range(nums[0], nums[1]),
+	nodupes: (nums) => [...new Set(nums)],
+	'': (arg) => arg, //to handle potential edge cases, add an empty string property (you will need to use quotes) which is a function that takes a single argument and returns that argument.
 };
 //UPDATE & EVALFORMULA FUNCTIONS(+helper functions: idToText, rangeFromString, elemValue, addCharacters)
 //start spreadsheet functions declaring new function:

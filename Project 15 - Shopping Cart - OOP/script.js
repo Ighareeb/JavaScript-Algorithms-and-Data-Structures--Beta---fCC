@@ -103,3 +103,43 @@ products.forEach(({ name, id, price, category }) => {
     </div>
     `;
 });
+//----------------------------------------------
+class ShoppingCart {
+	constructor() {
+		this.items = [];
+		this.total = 0;
+		this.taxRate = 8.25;
+	}
+
+	addItem(id, products) {
+		const product = products.find((item) => item.id === id);
+		const { name, price } = product;
+		this.items.push(product);
+		//check if a product has already been added to the user's cart - there will be a matching element:
+		const currentProductCountSpan = document.getElementById(
+			`product-count-for-id${product.id}`,
+		);
+		// behaviour of the addItem method needs to change if the product is already in the cart
+		currentProductCount > 1
+			? (currentProductCountSpan.textContent = `${currentProductCount}x`)
+			: (productsContainer.innerHTML += `
+			<div class='product' id='dessert${id}'>
+			<p>
+				<span class='product-count' id='product-count-for-id${id}'>${name}</span>
+			</p>
+			<p>${price}</p>
+			</div>
+			`);
+		//
+		const currentProductCount = totalCountPerProduct[product.id];
+		const totalCountPerProduct = {};
+		this.items.forEach((dessert) => {
+			totalCountPerProduct[dessert.id] =
+				(totalCountPerProduct[dessert.id] || 0) + 1;
+		});
+	}
+}
+//------------------------------------------------
+//NOTES
+//In JavaScript, a class is like a blueprint for creating objects. It allows you to define a set of properties and methods, and instantiate (or create) new objects with those properties and methods.
+//--class constructor method is called when a new instance of the class is created. The constructor method used to initialize properties of the class - use the this keyword (refers to current object) to set the properties of the object being instantiated

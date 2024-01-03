@@ -1,0 +1,112 @@
+/* reset default browser styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* Global colors + center positioning */
+:root {
+	--phone-colors: #dfdfe2;
+	--center-text: center;
+	--gray-00: #fff;
+}
+
+body {
+	background-color: #3b3b4f;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	color: #0a0a23;
+}
+
+main {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 40px 10px;
+}
+
+h1 {
+	color: white;
+	width: 100%;
+	max-width: 480px;
+	text-align: var(--center-text);
+	margin: 15px;
+}
+
+.phone-container {
+	position: relative;
+	width: 250px;
+	height: 460px;
+	margin: 30 auto;
+	border: 15px solid black;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--phone-colors);
+}
+
+/* user input */
+label {
+	margin: 10px auto 5px;
+}
+
+.user-input {
+	display: block;
+	width: 90%;
+	height: 42px;
+	margin: 10px auto;
+	padding: 5px;
+	text-align: var(--center-text);
+	font-size: 16px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+/* validatoroutput/result */
+.results-div {
+	height: 265px;
+	width: 100%;
+	overflow-y: auto;
+}
+
+/* buttons container + buttons */
+.phone-footer {
+	width: 100%;
+	height: 40px;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	bottom: 0;
+	background-color: black;
+}
+
+.btn-styles {
+	width: 100px;
+	margin: 10px;
+	color: #0a0a23;
+	background-color: #ffffff;
+	background-image: linear-gradient(#ffffff, #928d86);
+	border-color: #ffffff;
+	border-width: 3px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+/*  */
+.phone-background {
+	background-color: black;
+	width: 100%;
+	height: 25px;
+}
+
+.phone-camera {
+	background-color: var(--phone-colors);
+	width: 10px;
+	height: 10px;
+	margin: auto;
+	border-radius: 50%;
+}

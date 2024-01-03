@@ -115,6 +115,12 @@ class ShoppingCart {
 		const product = products.find((item) => item.id === id);
 		const { name, price } = product;
 		this.items.push(product);
+		const totalCountPerProduct = {};
+		this.items.forEach((dessert) => {
+			totalCountPerProduct[dessert.id] =
+				(totalCountPerProduct[dessert.id] || 0) + 1;
+		});
+		const currentProductCount = totalCountPerProduct[product.id];
 		//check if a product has already been added to the user's cart - there will be a matching element:
 		const currentProductCountSpan = document.getElementById(
 			`product-count-for-id${product.id}`,
@@ -130,15 +136,29 @@ class ShoppingCart {
 			<p>${price}</p>
 			</div>
 			`);
-		//
-		const currentProductCount = totalCountPerProduct[product.id];
-		const totalCountPerProduct = {};
-		this.items.forEach((dessert) => {
-			totalCountPerProduct[dessert.id] =
-				(totalCountPerProduct[dessert.id] || 0) + 1;
-		});
+	}
+	//access total # of items in cart (items array)
+	getCounts() {
+		return this.items.length;
 	}
 }
+
+//instantiate ShoppingCart object
+const cart = new ShoppingCart();
+//et all of the Add to cart buttons that you added to the DOM earlier (products.forEach....)
+const addToCartBtns = document.getElementsByClassName('add-to-cart-btn'); //returns HTML collection --> change into array to interate over
+[...addToCartBtns].forEach((btn) => {
+	btn.addEventListener('click', (event) => {
+		cart.addItem(Number(event.target.id), products);
+		totalNumberOfItems.textContent = cart.getCounts();
+	});
+});
+//eventListener to change visibility of the cart so it displays on the page
+cartBtn.addEventListener('click', () => {
+	isCartShowing = !isCartShowing;
+	showHideCartSpan.textContent = isCartShowing ? 'Hide' : 'Show';
+	cartContainer.style.display = isCartShowing ? 'block' : 'none';
+});
 //------------------------------------------------
 //NOTES
 //In JavaScript, a class is like a blueprint for creating objects. It allows you to define a set of properties and methods, and instantiate (or create) new objects with those properties and methods.

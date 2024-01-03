@@ -150,21 +150,43 @@ class ShoppingCart {
 		cartSubTotal.textContent = `$${subTotal.toFixed(2)}`;
 		cartTaxes.textContent = `$${tax.toFixed(2)}`;
 		cartTotal.textContent = `$${this.total.toFixed(2)}`;
+		return this.total;
 	}
 	//4. calculate tax to include in total cost -*note on .toFixed()* -->returns string so we can use decimal numbers--> parseFloat() back to number
 	calculateTaxes(amount) {
 		return parseFloat(((this.taxRate / 100) * amount).toFixed(2));
+	}
+	//5. clear cart
+	//note - Browsers have a built-in confirm() function which displays a confirmation prompt to the user. confirm() accepts a string, which is the message displayed to the user. It returns true if the user confirms, and false if the user cancels.
+	clearCart() {
+		if (!this.items.length) {
+			alert('Your shopping cart is already empty');
+			return;
+		}
+		const isCartCleared = confirm(
+			'Are you sure you want to clear all items from your shopping cart?',
+		);
+		if (isCartCleared) {
+			this.items = [];
+			this.total = 0;
+			productsContainer.innerHTML = '';
+			totalNumberOfItems.textContent = 0;
+			cartSubTotal.textContent = 0;
+			cartTaxes.textContent = 0;
+			cartTotal.textContent = 0;
+		}
 	}
 }
 
 //instantiate ShoppingCart object
 const cart = new ShoppingCart();
 //et all of the Add to cart buttons that you added to the DOM earlier (products.forEach....)
-const addToCartBtns = document.getElementsByClassName('add-to-cart-btn'); //returns HTML collection --> change into array to interate over
+const addToCartBtns = document.getElementsByClassName('add-to-cart-btn'); //returns HTML collection --> change into array to iterate over
 [...addToCartBtns].forEach((btn) => {
 	btn.addEventListener('click', (event) => {
 		cart.addItem(Number(event.target.id), products);
 		totalNumberOfItems.textContent = cart.getCounts();
+		cart.calculateTotal();
 	});
 });
 //eventListener to change visibility of the cart so it displays on the page
@@ -173,6 +195,8 @@ cartBtn.addEventListener('click', () => {
 	showHideCartSpan.textContent = isCartShowing ? 'Hide' : 'Show';
 	cartContainer.style.display = isCartShowing ? 'block' : 'none';
 });
+//note: need to use bind to set context of 'this to cart object NOT the clearCartBtn
+clearCartBtn.addEventListener('click', cart.clearCart.bind(cart));
 //------------------------------------------------
 //NOTES
 //In JavaScript, a class is like a blueprint for creating objects. It allows you to define a set of properties and methods, and instantiate (or create) new objects with those properties and methods.

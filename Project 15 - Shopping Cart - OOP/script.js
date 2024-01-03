@@ -110,7 +110,7 @@ class ShoppingCart {
 		this.total = 0;
 		this.taxRate = 8.25;
 	}
-
+	//1.
 	addItem(id, products) {
 		const product = products.find((item) => item.id === id);
 		const { name, price } = product;
@@ -137,9 +137,23 @@ class ShoppingCart {
 			</div>
 			`);
 	}
-	//access total # of items in cart (items array)
+	//2. access total # of items in cart (items array)
 	getCounts() {
 		return this.items.length;
+	}
+	//3. update total price of the cart when item is added
+	calculateTotal() {
+		const subTotal = this.items.reduce((total, item) => total + item.price, 0);
+		const tax = this.calculateTaxes(subTotal);
+		this.total = subTotal + tax;
+		//update HTML cart subtotal, tax and total being display
+		cartSubTotal.textContent = `$${subTotal.toFixed(2)}`;
+		cartTaxes.textContent = `$${tax.toFixed(2)}`;
+		cartTotal.textContent = `$${this.total.toFixed(2)}`;
+	}
+	//4. calculate tax to include in total cost -*note on .toFixed()* -->returns string so we can use decimal numbers--> parseFloat() back to number
+	calculateTaxes(amount) {
+		return parseFloat(((this.taxRate / 100) * amount).toFixed(2));
 	}
 }
 
@@ -163,3 +177,5 @@ cartBtn.addEventListener('click', () => {
 //NOTES
 //In JavaScript, a class is like a blueprint for creating objects. It allows you to define a set of properties and methods, and instantiate (or create) new objects with those properties and methods.
 //--class constructor method is called when a new instance of the class is created. The constructor method used to initialize properties of the class - use the this keyword (refers to current object) to set the properties of the object being instantiated
+//-*note on .toFixed()*
+//Because of the way computers store and work with numbers, calculations involving decimal numbers can result in some strange behavior. For example, 0.1 + 0.2 is not equal to 0.3. This is because computers store decimal numbers as binary fractions, and some binary fractions cannot be represented exactly as decimal fractions. .toFixed(#) will round the number to # decimal places and return a string. HOWEVER since you get a string and want to work with numbers you need to convert it back with parseFloat(), preserving the existing decimal place.

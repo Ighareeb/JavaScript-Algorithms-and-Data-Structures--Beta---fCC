@@ -4,7 +4,7 @@ const checkpointScreen = document.querySelector('.checkpoint-screen');
 const checkpointMessage = document.querySelector('.checkpoint-screen > p');
 const startBtn = document.getElementById('start-btn');
 const canvas = document.getElementById('canvas');
-//-------------------------------Setting up <canvas>-------------------------------------------
+//------------------------Setting up <canvas>-----------------------------
 const ctx = canvas.getContext('2d');
 //innerWidth/Height are props representing interior W/H of the browser window
 canvas.width = innerWidth;
@@ -90,6 +90,28 @@ class Player {
 	}
 }
 //----------
+//CheckPoint Constructor
+class CheckPoint {
+	constructor(x, y) {
+		this.position = {
+			x,
+			y,
+		};
+		this.width = 40;
+		this.height = 70;
+	}
+
+	draw() {
+		ctx.fillStyle = '#f1be32';
+		ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+	}
+	claim() {
+		this.width = 0;
+		this.height = 0;
+		this.position.y = Infinity;
+	}
+}
+//----------
 //Platform Constructor
 class Platform {
 	constructor(x, y) {
@@ -112,28 +134,7 @@ const startGame = () => {
 	animate();
 };
 //----------
-//CheckPoint Constructor
-class CheckPoint {
-	constructor(x, y) {
-		this.position = {
-			x,
-			y,
-		};
-		this.width = 40;
-		this.height = 70;
-	}
 
-	draw() {
-		ctx.fillStyle = '#f1be32';
-		ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-	}
-	claim() {
-		this.width = 0;
-		this.height = 0;
-		this.position.y = Infinity;
-	}
-}
-//-----
 //moving/animating player using requestAnimationFrame() web API - updating player's position and continuously drawing it on the canvas
 // + as player moves need to clear previous frame before rendering next animation
 const animate = () => {
@@ -189,6 +190,29 @@ const animate = () => {
 			player.velocity.y = gravity;
 		}
 	});
+	checkpoints.forEach((checkpoint, index) => {
+		const checkpointDetectionRules = [
+			player.position.x >= checkpoint.position.x,
+			player.position.y >= checkpoint.position.y,
+			player.position.y + player.height <=
+				checkpoint.position.y + checkpoint.height,
+			isCheckpointCollisionDetectionActive,
+		];
+		if (checkpointDetectionRules.every((rule) => rule)) {
+			checkpoint.claim();
+		}
+		//condition to check if player has reached last checkpoint
+		if (index === checkpoints.length - 1) {
+			isCheckpointCollisionDetectionActive = false;
+			showCheckpointScreen('You reached the final checkpoint!');
+			movePlayer('ArrowRight', 0, false);
+		} else if (
+			player.position.x >= checkpoint.position.x &&
+			player.position.x <= checkpoint.position.x + 40
+		) {
+			showCheckpointScreen('You reached a checkpoint!');
+		}
+	});
 };
 //------manage player movements when L/R arrow keys pressed + movePlayer()
 const keys = {
@@ -230,6 +254,14 @@ const movePlayer = (key, xVelocity, isPressed) => {
 			}
 			player.velocity.y -= 8;
 			break;
+	}
+};
+//-----
+const showCheckpointScreen = (msg) => {
+	checkpointScreen.style.display = 'block';
+	checkpointMessage.textContent = msg;
+	if (isCheckpointCollisionDetectionActive) {
+		setTimeout(() => (checkpointScreen.style.display = 'none'), 2000);
 	}
 };
 //-----eventListener for startBtn, player move keys (destructure event object to get key prop)

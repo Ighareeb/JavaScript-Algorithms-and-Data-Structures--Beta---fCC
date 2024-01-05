@@ -9,10 +9,26 @@ const ctx = canvas.getContext('2d');
 //innerWidth/Height are props representing interior W/H of the browser window
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-//-------------------------------Setting up game variables-------------------------------------------
+//--------------------Setting up game variables--------------------------
 const gravity = 0.5;
 //The player will have the opportunity to cross different checkpoints. Need to keep track of the status for the checkpoint collision detection.
 let isCheckpointCollisionDetectionActive = true;
+//array for Platform positions
+const platformPositions = [
+	{ x: 500, y: 450 },
+	{ x: 700, y: 400 },
+	{ x: 850, y: 350 },
+	{ x: 900, y: 350 },
+	{ x: 1050, y: 150 },
+	{ x: 2500, y: 450 },
+	{ x: 2900, y: 400 },
+	{ x: 3150, y: 350 },
+	{ x: 3900, y: 450 },
+	{ x: 4200, y: 400 },
+	{ x: 4400, y: 200 },
+	{ x: 4700, y: 150 },
+];
+//-------------------------CLASSES--------------------------------
 //Player Constructor
 class Player {
 	constructor() {
@@ -55,6 +71,19 @@ class Player {
 		}
 	}
 }
+//----------
+//Platform Constructor
+class Platform {
+	constructor(x, y) {
+		this.position = { x, y };
+		this.width = 200;
+		this.height = 40;
+	}
+	draw() {
+		ctx.fillStyle = '#acd157';
+		ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+	}
+}
 //-----instantiate new player
 const player = new Player();
 //-----------------------------GAME FUNCTIONS/LOGIC---------------------------
@@ -62,7 +91,7 @@ const player = new Player();
 const startGame = () => {
 	canvas.style.display = 'block';
 	startScreen.style.display = 'none';
-	player.draw();
+	animate();
 };
 //-----
 //moving/animating player using requestAnimationFrame() web API - updating player's position and continuously drawing it on the canvas

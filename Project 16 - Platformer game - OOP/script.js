@@ -132,6 +132,23 @@ const animate = () => {
 			player.position.x <=
 				platform.position.x + platform.width - player.width / 3,
 		];
+		//if all the above rules in the collisionDetectionRules array is true
+		if (collisionDetectionRules.every((rule) => rule)) {
+			player.velocity.y = 0;
+			return;
+		}
+		const platformDetectionRules = [
+			player.position.x >= platform.position.x - player.width / 2,
+			player.position.x <=
+				platform.position.x + platform.width - player.width / 3,
+			player.position.y + player.height >= platform.position.y,
+			player.position.y <= platform.position.y + platform.height,
+		];
+		//if all the above rules in the platformDetectionRules array is true
+		if (platformDetectionRules.every((rule) => rule)) {
+			player.position.y = platform.position.y + player.height;
+			player.velocity.y = gravity;
+		}
 	});
 };
 //------manage player movements when L/R arrow keys pressed + movePlayer()

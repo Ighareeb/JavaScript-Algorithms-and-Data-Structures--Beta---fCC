@@ -28,12 +28,23 @@ const platformPositions = [
 	{ x: 4400, y: 200 },
 	{ x: 4700, y: 150 },
 ];
-//create array of platform instances using the Platform class as reference to draw the platforms on the canvas + iterate  call draw() on each platform to use in animate()
+//create array of platform instances using the Platform class && Checkpoint class as reference to draw the platforms/checkpoints on the canvas + iterate  call draw() on each platform to use in animate()
 const platforms = platformPositions.map(
 	(platform) => new Platform(platform.x, platform.y),
 );
 platforms.forEach((platform) => {
 	platform.draw();
+});
+const checkpointPositions = [
+	{ x: 1170, y: 80 },
+	{ x: 2900, y: 330 },
+	{ x: 4800, y: 80 },
+];
+const checkpoints = checkpointPositions.map(
+	(checkpoint) => new CheckPoint(checkpoint.x, checkpoint.y),
+);
+checkpoints.forEach((checkpoint) => {
+	checkpoint.draw();
 });
 //-------------------------CLASSES--------------------------------
 //Player Constructor
@@ -100,6 +111,28 @@ const startGame = () => {
 	startScreen.style.display = 'none';
 	animate();
 };
+//----------
+//CheckPoint Constructor
+class CheckPoint {
+	constructor(x, y) {
+		this.position = {
+			x,
+			y,
+		};
+		this.width = 40;
+		this.height = 70;
+	}
+
+	draw() {
+		ctx.fillStyle = '#f1be32';
+		ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+	}
+	claim() {
+		this.width = 0;
+		this.height = 0;
+		this.position.y = Infinity;
+	}
+}
 //-----
 //moving/animating player using requestAnimationFrame() web API - updating player's position and continuously drawing it on the canvas
 // + as player moves need to clear previous frame before rendering next animation
@@ -117,9 +150,15 @@ const animate = () => {
 			platforms.forEach((platform) => {
 				platform.position.x -= 5;
 			});
+			checkpoints.forEach((checkpoint) => {
+				checkpoint.position.x -= 5;
+			});
 		} else if (keys.leftKey.pressed && isCheckpointCollisionDetectionActive) {
 			platforms.forEach((platform) => {
 				platform.position.x += 5;
+			});
+			checkpoints.forEach((checkpoint) => {
+				checkpoint.position.x += 5;
 			});
 		}
 	}

@@ -55,8 +55,19 @@ class Player {
 		}
 	}
 }
-
+//-----instantiate new player
+const player = new Player();
+//-----------------------------GAME FUNCTIONS/LOGIC---------------------------
+//change display from start screen to canvas, call draw( ) method
+const startGame = () => {
+	canvas.style.display = 'block';
+	startScreen.style.display = 'none';
+	player.draw();
+};
+//-----eventListener for startBtn
+startBtn.addEventListener('click', startGame);
 //----------------------------------------------------------------------------
+
 // NOTES:
 // Canvas API used to create graphics
 // canvas.getContext(contextType, contextAttributes) method provides context for where grahpics will be rendered

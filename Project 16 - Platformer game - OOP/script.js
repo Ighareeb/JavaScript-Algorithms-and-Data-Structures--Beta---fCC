@@ -64,8 +64,71 @@ const startGame = () => {
 	startScreen.style.display = 'none';
 	player.draw();
 };
-//-----eventListener for startBtn
+//-----
+//moving/animating player using requestAnimationFrame() web API - updating player's position and continuously drawing it on the canvas
+// + as player moves need to clear previous frame before rendering next animation
+const animate = () => {
+	requestAnimationFrame(animate);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	player.update();
+	if (keys.rightKey.pressed && player.position.x < 400) {
+		player.velocity.x = 5;
+	} else if (keys.leftKey.pressed && player.position.x > 100) {
+		player.velocity.x = -5;
+	} else {
+		player.velocity.x = 0;
+	}
+};
+//------manage player movements when L/R arrow keys pressed + movePlayer()
+const keys = {
+	rightKey: {
+		pressed: false,
+	},
+	leftKey: {
+		pressed: false,
+	},
+};
+//*check notes
+const movePlayer = (key, xVelocity, isPressed) => {
+	if (!isCheckpointCollisionDetectionActive) {
+		player.velocity.x = 0;
+		player.velocity.y = 0;
+		return;
+	}
+	switch (key) {
+		case 'ArrowLeft':
+			keys.leftKey.pressed = isPressed;
+			if (xVelocity === 0) {
+				player.velocity.x = xVelocity;
+			}
+			player.velocity.x -= xVelocity;
+			break;
+		case 'ArrowRight':
+			keys.rightKey.pressed = isPressed;
+			if (xVelocity === 0) {
+				player.velocity.x = xVelocity;
+			}
+			player.velocity.x += xVelocity;
+			break;
+		case 'ArrowUp': //jump cases
+		case ' ':
+		case 'Spacebar':
+			keys.leftKey.pressed = isPressed;
+			if (xVelocity === 0) {
+				player.velocity.x = xVelocity;
+			}
+			player.velocity.y -= 8;
+			break;
+	}
+};
+//-----eventListener for startBtn, player move keys (destructure event object to get key prop)
 startBtn.addEventListener('click', startGame);
+window.addEventListener('keydown', ({ key }) => {
+	movePlayer(key, 8, true);
+});
+window.addEventListener('keyup', ({ key }) => {
+	movePlayer(key, 0, false);
+});
 //----------------------------------------------------------------------------
 
 // NOTES:
@@ -74,5 +137,10 @@ startBtn.addEventListener('click', startGame);
 //(...drawing context on the canvas)
 //fillRect(x, y, width, height)
 //The fillRect() method draws a filled rectangle whose starting point is at (x, y) and whose size is specified by width and height. The fill style is determined by the current fillStyle attribute.
+// clearRect(x, y, width, height) Web API - can be used to clear the canvas before rendering the next frame of the animation.
 //When the player moves to the right, you will need to adjust its velocity. (x)
 //When the player jumps up, you will need to add the logic for adjusting its velocity. (y)
+//*movePlayer() - In the game, the player will interact with different checkpoints. If the isCheckpointCollisionDetectionActive is false, then you will need to stop the player's movements on the x and y axis.
+//The player can jump up by using the up arrow key or the spacebar.
+//The window.requestAnimationFrame() method tells the browser you wish to perform an animation -
+//--> requestAnimationFrame(callback) -- callback function is passed a single argument: a DOMHighResTimeStamp indicating the end time of the previous frame's rendering (based on the number of milliseconds since time origin).

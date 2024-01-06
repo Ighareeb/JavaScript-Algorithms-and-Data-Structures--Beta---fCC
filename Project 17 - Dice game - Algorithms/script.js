@@ -29,6 +29,34 @@ rulesBtn.addEventListener('click', () => {
 		rulesContainer.style.display = 'none';
 	}
 });
-//--------ROLL DICE FUNCTION/LOGIC----------------
-//There are a total of 6 rounds and for each round, the player can roll the dice up to 3 times and collect a score.
-//When the user clicks on the Roll the dice button, five random die numbers should be generated and displayed on the screen. Each time the user rolls the dice, the list of previous dice values should be reset.
+//
+rollDiceBtn.addEventListener('click', () => {
+	if (rolls === 3) {
+		alert('You have made three rolls this round. Please select a score.');
+	} else {
+		rolls++;
+		rollDice();
+		updateStats();
+	}
+});
+//-------------------ROLL DICE FUNCTION/LOGIC(*notes)----------------
+const rollDice = () => {
+	//generate 5 dice numbers (value = 1-6) and push to array
+	diceValuesArr = [];
+	for (let i = 0; i < 5; i++) {
+		const randomDice = Math.floor(Math.random() * 6) + 1;
+		diceValuesArr.push(randomDice);
+	}
+	//display dice values generated
+	listOfAllDice.forEach((dice, index) => {
+		dice.textContent = diceValuesArr[index];
+	});
+};
+//update rolls, round text content
+const updateStats = () => {
+	currentRoundRollsText.textContent = rolls;
+	currentRoundText.textContent = round;
+};
+//---------------------NOTES-----------------------------------
+//There are a total of 6 rounds - for each round the player can roll the dice max 3 times and collect a score.
+//(*)When the user clicks on the Roll the dice button, five random die numbers should be generated and displayed on the screen. Each time the user rolls the dice, the list of previous dice values should be reset. When the user rolls the dice, you will need to generate 5 random numbers (1-6) representing each die value.

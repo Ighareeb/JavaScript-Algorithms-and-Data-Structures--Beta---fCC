@@ -40,6 +40,7 @@ rollDiceBtn.addEventListener('click', () => {
 		updateStats();
 		getHighestDuplicates(diceValuesArr);
 		detectFullHouse(diceValuesArr);
+		checkForStraights(diceValuesArr);
 	}
 });
 keepScoreBtn.addEventListener('click', () => {
@@ -128,7 +129,7 @@ const getHighestDuplicates = (arr) => {
 	//If the user does not get a "Three of a kind" or "Four of kind", then they will not receive any points for that round.
 	updateRadioOption(5, 0);
 };
-//function to check for (full house) i.e. both a "Three of a kind" and a pair and display that option on the screen.
+//function to check for (full house) i.e. both a "Three of a kind"(25points) and a pair and display that option on the screen.
 const detectFullHouse = (arr) => {
 	const counts = {};
 	for (const num of arr) {
@@ -138,6 +139,21 @@ const detectFullHouse = (arr) => {
 	const hasPair = Object.values(counts).includes(2);
 	if (hasThreeOfAKind && hasPair) {
 		updateRadioOption(2, 25);
+	}
+	updateRadioOption(5, 0);
+};
+//function that checks for a straight i.e.dice have consecutive values small - 4 consec(30points), 5 consec is long straigth(40points)
+const checkForStraights = (arr) => {
+	const sortedNumbersArr = arr.sort((a, b) => a - b);
+	const uniqueNumbersArr = [...new Set(sortedNumbersArr)];
+	const uniqueNumbersStr = uniqueNumbersArr.join('');
+	const smallStraightsArr = ['1234', '2345', '3456'];
+	const largeStraightsArr = ['12345', '23456'];
+	if (smallStraightsArr.includes(uniqueNumbersStr)) {
+		updateRadioOption(3, 30);
+	}
+	if (largeStraightsArr.includes(uniqueNumbersStr)) {
+		updateRadioOption(4, 40);
 	}
 	updateRadioOption(5, 0);
 };

@@ -41,6 +41,27 @@ rollDiceBtn.addEventListener('click', () => {
 		getHighestDuplicates(diceValuesArr);
 	}
 });
+keepScoreBtn.addEventListener('click', () => {
+	let selectedValue;
+	let achieved;
+	//iterate to see which radio button has the checked attribute and get its value/id
+	for (const radioButton of scoreInputs) {
+		if (radioButton.checked) {
+			selectedValue = radioButton.value;
+			achieved = radioButton.id;
+		}
+		break;
+	} //when user makes selection update rounds, rolls and scores
+	if (selectedValue) {
+		rolls = 0;
+		round++;
+		updateStats();
+		resetRadioOption();
+		updateScore(selectedValue, achieved);
+	} else {
+		alert('Please select an option or roll the dice');
+	}
+});
 //-------------------ROLL DICE FUNCTION/LOGIC(*notes)----------------
 const rollDice = () => {
 	//generate 5 dice numbers (value = 1-6) and push to array
@@ -110,6 +131,9 @@ const resetRadioOption = () => {
 		span.textContent = '';
 	});
 };
-//---------------------NOTES-----------------------------------
-//There are a total of 6 rounds - for each round the player can roll the dice max 3 times and collect a score.
-//(*)When the user clicks on the Roll the dice button, five random die numbers should be generated and displayed on the screen. Each time the user rolls the dice, the list of previous dice values should be reset. When the user rolls the dice, you will need to generate 5 random numbers (1-6) representing each die value.
+//function that keeps track of and displays each score for all six rounds of the game. (selectedValue is the option chosen by user)
+const updateScore = (selectedValue, achieved) => {
+	totalScore += parseInt(selectedValue);
+	totalScoreText.textContent = totalScore;
+	scoreHistory.innerHTML += `<li>${achieved} : ${selectedValue}</li>`;
+};

@@ -37,6 +37,7 @@ rollDiceBtn.addEventListener('click', () => {
 		rolls++;
 		rollDice();
 		updateStats();
+		getHighestDuplicates(diceValuesArr);
 	}
 });
 //-------------------ROLL DICE FUNCTION/LOGIC(*notes)----------------
@@ -57,6 +58,47 @@ const updateStats = () => {
 	currentRoundRollsText.textContent = rolls;
 	currentRoundText.textContent = round;
 };
+//choose score and add points based on player number combo selection (input radio buttons)
+const updateRadioOption = (optionNode, score) => {
+	scoreInputs[optionNode].disabled = false;
+	scoreInputs[optionNode].value = score;
+	scoreSpans[optionNode].textContent = `, score = ${score}`;
+};
+//algorithm that tracks any duplicates found in the diceValuesArr and displays a score next to the first two ('3-4 of a kind') radio buttons.
+const getHighestDuplicates = (arr) => {
+	const counts = {};
+
+	for (const num of arr) {
+		if (counts[num]) {
+			counts[num]++;
+		} else {
+			counts[num] = 1;
+		}
+	}
+
+	let highestCount = 0;
+
+	for (const num of arr) {
+		const count = counts[num];
+		if (count >= 3 && count > highestCount) {
+			highestCount = count;
+		}
+		if (count >= 4 && count > highestCount) {
+			highestCount = count;
+		}
+	}
+	const sumOfAllDice = diceValuesArr.reduce((a, b) => a + b, 0);
+	if (highestCount >= 4) {
+		updateRadioOption(1, sumOfAllDice);
+	}
+
+	if (highestCount >= 3) {
+		updateRadioOption(0, sumOfAllDice);
+	}
+	//If the user does not get a "Three of a kind" or "Four of kind", then they will not receive any points for that round.
+	updateRadioOption(5, 0);
+};
+
 //---------------------NOTES-----------------------------------
 //There are a total of 6 rounds - for each round the player can roll the dice max 3 times and collect a score.
 //(*)When the user clicks on the Roll the dice button, five random die numbers should be generated and displayed on the screen. Each time the user rolls the dice, the list of previous dice values should be reset. When the user rolls the dice, you will need to generate 5 random numbers (1-6) representing each die value.

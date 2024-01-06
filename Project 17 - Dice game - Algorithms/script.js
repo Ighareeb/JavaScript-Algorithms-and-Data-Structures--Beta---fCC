@@ -49,8 +49,8 @@ keepScoreBtn.addEventListener('click', () => {
 		if (radioButton.checked) {
 			selectedValue = radioButton.value;
 			achieved = radioButton.id;
+			break;
 		}
-		break;
 	} //when user makes selection update rounds, rolls and scores
 	if (selectedValue) {
 		rolls = 0;
@@ -58,6 +58,13 @@ keepScoreBtn.addEventListener('click', () => {
 		updateStats();
 		resetRadioOption();
 		updateScore(selectedValue, achieved);
+		//set game to have 6 rounds
+		if (round > 6) {
+			setTimeout(() => {
+				alert(`Game Over! Your total score is ${totalScore}`);
+				resetGame();
+			}, 500);
+		}
 	} else {
 		alert('Please select an option or roll the dice');
 	}
@@ -136,4 +143,23 @@ const updateScore = (selectedValue, achieved) => {
 	totalScore += parseInt(selectedValue);
 	totalScoreText.textContent = totalScore;
 	scoreHistory.innerHTML += `<li>${achieved} : ${selectedValue}</li>`;
+};
+//function needed to implement 6 round game limitconst resetGame = () => {
+const resetGame = () => {
+	diceValuesArr = [0, 0, 0, 0, 0];
+	score = 0;
+	totalScore = 0;
+	rolls = 0;
+	round = 1;
+	//reset each dice value
+	listOfAllDice.forEach((dice, index) => {
+		dice.textContent = diceValuesArr[index];
+	});
+	//update score history, total, rounds and rolls text.
+	totalScoreText.textContent = totalScore;
+	scoreHistory.innerHTML = '';
+	currentRoundRollsText.textContent = rolls;
+	currentRoundText.textContent = round;
+	//reset all of the radio buttons.
+	resetRadioOption();
 };

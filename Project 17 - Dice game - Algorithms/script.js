@@ -35,6 +35,7 @@ rollDiceBtn.addEventListener('click', () => {
 		alert('You have made three rolls this round. Please select a score.');
 	} else {
 		rolls++;
+		resetRadioOption();
 		rollDice();
 		updateStats();
 		getHighestDuplicates(diceValuesArr);
@@ -98,7 +99,17 @@ const getHighestDuplicates = (arr) => {
 	//If the user does not get a "Three of a kind" or "Four of kind", then they will not receive any points for that round.
 	updateRadioOption(5, 0);
 };
+//function to reset values for the score inputs and spans so a new value can be displayed.
+const resetRadioOption = () => {
+	scoreInputs.forEach((input) => {
+		input.disabled = true;
+		input.checked = false;
+	});
 
+	scoreSpans.forEach((span) => {
+		span.textContent = '';
+	});
+};
 //---------------------NOTES-----------------------------------
 //There are a total of 6 rounds - for each round the player can roll the dice max 3 times and collect a score.
 //(*)When the user clicks on the Roll the dice button, five random die numbers should be generated and displayed on the screen. Each time the user rolls the dice, the list of previous dice values should be reset. When the user rolls the dice, you will need to generate 5 random numbers (1-6) representing each die value.

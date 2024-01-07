@@ -42,7 +42,7 @@ const showLatestPosts = (data) => {
     	</td>
     	<td></td>
     	<td>${posts_count - 1}</td>
-    	<td>${views}</td>
+    	<td>${viewCount(views)}</td>
     	<td>${timeAgo(bumped_at)}</td>
     </tr>`;
 		})
@@ -69,4 +69,14 @@ const timeAgo = (time) => {
 	}
 
 	return `${daysAgo}d ago`;
+};
+//function to convert view counts to a more readable format
+const viewCount = (views) => {
+	const thousands = Math.floor(views / 1000);
+
+	if (views >= 1000) {
+		return `${thousands}k`;
+	}
+
+	return views; //for less than 1000 views
 };

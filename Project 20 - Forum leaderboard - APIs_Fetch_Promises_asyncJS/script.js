@@ -1,5 +1,16 @@
 // declare/assign variables for DOM
 const postsContainer = document.getElementById('posts-container');
+//category object which holds all of the forum categories and classNames for the styling.
+const allCategories = {
+	299: { category: 'Career Advice', className: 'career' },
+	409: { category: 'Project Feedback', className: 'feedback' },
+	417: { category: 'freeCodeCamp Support', className: 'support' },
+	421: { category: 'JavaScript', className: 'javascript' },
+	423: { category: 'HTML - CSS', className: 'html-css' },
+	424: { category: 'Python', className: 'python' },
+	432: { category: 'You Can Do This!', className: 'motivation' },
+	560: { category: 'Backend Development', className: 'backend' },
+};
 //variables for URLs
 const forumLatest = 'https://forum-proxy.freecodecamp.rocks/latest';
 const forumTopicUrl = 'https://forum.freecodecamp.org/t/';
@@ -40,7 +51,7 @@ const showLatestPosts = (data) => {
     	<td>
         	<p class="post-title">${title}</p>
     	</td>
-    	<td></td>
+    	<td>${forumCategory(category_id)}</td>
     	<td>${posts_count - 1}</td>
     	<td>${viewCount(views)}</td>
     	<td>${timeAgo(bumped_at)}</td>
@@ -79,4 +90,23 @@ const viewCount = (views) => {
 	}
 
 	return views; //for less than 1000 views
+};
+//function to retrieve category names from allCategories object
+const forumCategory = (id) => {
+	let selectedCategory = {};
+
+	if (allCategories.hasOwnProperty(id)) {
+		const { className, category } = allCategories[id];
+
+		selectedCategory.className = className;
+		selectedCategory.category = category;
+	} else {
+		selectedCategory.className = 'general';
+		selectedCategory.category = 'General';
+		selectedCategory.id = 1;
+	}
+	const url = `${forumCategoryUrl}${selectedCategory.className}/${id}`;
+	const linkText = selectedCategory.category; //display the name of the category in the anchor element.
+	const linkClass = `category ${selectedCategory.className}`; //apply styles for the anchor element.
+	return `<a href="${url}" class='${linkClass}' target='_blank'>${linkText}</a>`;
 };

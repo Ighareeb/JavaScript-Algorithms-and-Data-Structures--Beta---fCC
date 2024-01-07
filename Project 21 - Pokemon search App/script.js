@@ -32,13 +32,19 @@ const getPokemon = async (query) => {
 		weight.textContent = `Weight: ${data.weight}`;
 		height.textContent = `Height: ${data.height}`;
 		sprite.src = data.sprites.front_default;
-		type.textContent = data.types[0].type.name.toUpperCase();
 		hp.textContent = `${data.stats[0].base_stat}`;
 		attack.textContent = `${data.stats[1].base_stat}`;
 		defence.textContent = `${data.stats[2].base_stat}`;
 		spAttack.textContent = `${data.stats[3].base_stat}`;
 		spDefence.textContent = `${data.stats[4].base_stat}`;
 		speed.textContent = `${data.stats[5].base_stat}`;
+		types.innerHTML = '';
+		data.types.forEach((type) => {
+			const typeElement = document.createElement('div');
+			typeElementtextContent = typeElement.textContent =
+				type.type.name.toUpperCase();
+			types.appendChild(typeElement);
+		});
 	} catch (error) {
 		console.log('Error:', error);
 	}
@@ -46,7 +52,7 @@ const getPokemon = async (query) => {
 
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
-	const query = userInput.value.toLowerCase();
+	const query = userInput.value.toLowerCase().replace(/[^a-z0-9]/g, '-');
 	console.log(typeof query);
 	getPokemon(query);
 });

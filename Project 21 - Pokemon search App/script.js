@@ -29,7 +29,6 @@ const getPokemon = async (query) => {
 		pid.textContent = `#${data.id}`;
 		weight.textContent = `Weight: ${data.weight}`;
 		height.textContent = `Height: ${data.height}`;
-		sprite.src = data.sprites.front_default;
 		hp.textContent = `${data.stats[0].base_stat}`;
 		attack.textContent = `${data.stats[1].base_stat}`;
 		defence.textContent = `${data.stats[2].base_stat}`;

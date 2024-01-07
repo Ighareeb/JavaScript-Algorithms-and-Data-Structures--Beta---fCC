@@ -4,3 +4,140 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+body {
+	height: 100vh;
+	background-color: #1b1b32;
+	color: #0a0a23;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	line-height: 1.5;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+h1 {
+	font-size: 2em;
+	color: #f5f6f7;
+	text-align: center;
+}
+
+/* search form for user query */
+.container {
+	width: 450px;
+	margin: 25px 0;
+	background-color: #f5f6f7;
+	border: 5px solid #ff0000;
+	border-radius: 10px;
+}
+
+#search-form {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 10px 0;
+	padding: 5px;
+	border-radius: 8px 8px 0 0;
+	gap: 10px;
+}
+
+label {
+	align-self: center;
+}
+
+#search-input {
+	height: 40px;
+	padding-left: 10px;
+	width: 200px;
+}
+
+#search-button {
+	padding: 11px 0;
+	width: 80px;
+	border-radius: 15px;
+	text-align: center;
+	background-color: #ffde00;
+	color: black;
+	font-weight: bold;
+	outline: none;
+	border: 2px solid #3b4cca;
+}
+
+/* OUTPUT/RESULTS display (picture & stats) */
+.output {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 10px 0;
+	padding: 5px;
+}
+
+.top-container,
+.bottom-container {
+	display: flex;
+	flex-direction: column;
+	min-height: 325px;
+	margin-bottom: 10px;
+	padding: 10px;
+	background-color: #f0f1f7;
+	width: 100%;
+}
+
+.name-and-id {
+	height: 28px;
+	font-size: 1.1em;
+	text-transform: capitalize;
+	margin-bottom: 5px;
+}
+
+.size {
+	height: 22px;
+	font-size: 0.85rem;
+}
+
+.sprite-container {
+	flex-grow: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#types {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	min-height: 30px;
+	gap: 5px;
+}
+
+/* output table */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	background-color: #ffde00;
+	color: black;
+	font-weight: bold;
+	outline: none;
+	border: 2px solid #3b4cca;
+}
+
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+}
+
+tr {
+	border-bottom: 5px solid #3b4cca;
+}
+
+th,
+td {
+	text-align: center;
+	padding: 8px;
+}

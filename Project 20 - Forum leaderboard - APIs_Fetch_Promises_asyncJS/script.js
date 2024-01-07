@@ -50,8 +50,13 @@ const showLatestPosts = (data) => {
     <tr>
     	<td>
         	<p class="post-title">${title}</p>
+			${forumCategory(category_id)}
     	</td>
-    	<td>${forumCategory(category_id)}</td>
+    	<td>
+			<div class="avatar-container">
+				${avatars(posters, users)}
+			</div>
+		</td>
     	<td>${posts_count - 1}</td>
     	<td>${viewCount(views)}</td>
     	<td>${timeAgo(bumped_at)}</td>
@@ -109,4 +114,19 @@ const forumCategory = (id) => {
 	const linkText = selectedCategory.category; //display the name of the category in the anchor element.
 	const linkClass = `category ${selectedCategory.className}`; //apply styles for the anchor element.
 	return `<a href="${url}" class='${linkClass}' target='_blank'>${linkText}</a>`;
+};
+//function to include list of user avatar images that are participating in coversation for a topic
+const avatars = (posters, users) => {
+	return posters
+		.map((poster) => {
+			const user = users.find((user) => user.id === poster.user_id);
+			if (user) {
+				const avatar = user.avatar_template.replace(/{size}/, 30);
+				const userAvatarUrl = avatar.startsWith('/user_avatar/')
+					? avatarUrl.concat(avatar)
+					: avatar;
+				return `<img src="${userAvatarUrl}" alt="${user.name}" />`;
+			}
+		})
+		.join('');
 };

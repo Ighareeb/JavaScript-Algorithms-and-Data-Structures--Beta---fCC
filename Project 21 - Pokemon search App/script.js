@@ -5,13 +5,11 @@ const pName = document.getElementById('pokemon-name');
 const pid = document.getElementById('pokemon-id');
 const weight = document.getElementById('weight');
 const height = document.getElementById('height');
-const sprite = document.getElementById('sprite');
-const type = document.querySelector('.type');
 const hp = document.getElementById('hp');
 const attack = document.getElementById('attack');
-const defence = document.getElementById('defence');
+const defence = document.getElementById('defense');
 const spAttack = document.getElementById('special-attack');
-const spDefence = document.getElementById('special-defence');
+const spDefence = document.getElementById('special-defense');
 const speed = document.getElementById('speed');
 
 //
@@ -38,13 +36,17 @@ const getPokemon = async (query) => {
 		spAttack.textContent = `${data.stats[3].base_stat}`;
 		spDefence.textContent = `${data.stats[4].base_stat}`;
 		speed.textContent = `${data.stats[5].base_stat}`;
+		const types = document.getElementById('types');
 		types.innerHTML = '';
 		data.types.forEach((type) => {
 			const typeElement = document.createElement('div');
-			typeElementtextContent = typeElement.textContent =
-				type.type.name.toUpperCase();
+			typeElement.textContent = type.type.name.toUpperCase();
 			types.appendChild(typeElement);
 		});
+		const sprite = document.createElement('img');
+		sprite.id = 'sprite';
+		sprite.src = data.sprites.front_default;
+		document.querySelector('.sprite-container').appendChild(sprite);
 	} catch (error) {
 		console.log('Error:', error);
 	}

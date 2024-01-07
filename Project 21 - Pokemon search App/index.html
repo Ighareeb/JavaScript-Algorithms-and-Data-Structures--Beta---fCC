@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+	<title>Project 21 - Pokemon search App</title>
+</head>
+
+<body>
+	<main>
+		<h1>Pokémon Search App</h1>
+	</main>
+	<div class="container">
+		<!-- search form for user query -->
+		<form id="search-form">
+			<label for="search-input"></label>
+			<input type="text" id="search-input" placeholder="Search for Pokémon Name or ID">
+			<button id="search-button">Search</button>
+		</form>
+		<!-- output/results display (picture & stats) -->
+		<div class="top-container">
+			<div class="name-and-id">
+				<span id="pokemon-name"></span>
+				<span id="pokemon-id"></span>
+			</div>
+			<div class="size">
+				<span id="weight"></span>
+				<span id="height"></span>
+			</div>
+			<div class="sprite-container" id="sprite-container">
+				<img src="" alt="" id="sprite">
+			</div>
+			<div id="types">
+				<span class="type"></span>type
+			</div>
+		</div>
+		<!--  -->
+		<div class="bottom-container">
+			<table>
+				<tbody>
+					<tr>
+						<th>Base</th>
+						<th>Stats</th>
+					</tr>
+					<tr>
+						<td>HP:</td>
+						<td id="hp"></td>
+					</tr>
+					<tr>
+						<td>Attack:</td>
+						<td id="attack"></td>
+					</tr>
+					<tr>
+						<td>Defence:</td>
+						<td id="defence"></td>
+					</tr>
+					<tr>
+						<td>Sp. Attack:</td>
+						<td id="special-attack"></td>
+					</tr>
+					<tr>
+						<td>Sp. Defence:</td>
+						<td id="special-defence"></td>
+					</tr>
+					<tr>
+						<td>Speed:</td>
+						<td id="speed" class="speed"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<script src="script.js"></script>
+</body>
+
+</html>

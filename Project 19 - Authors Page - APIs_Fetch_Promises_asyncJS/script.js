@@ -5,6 +5,7 @@ const loadMoreBtn = document.getElementById('load-more-btn');
 let startingIndex = 0;
 let endingIndex = 8;
 let authorDataArr = [];
+
 //function to display data in UI (will be used in fetch req)
 const displayAuthors = (authors) => {
 	authors.forEach(({ author, image, url, bio }, index) => {
@@ -17,6 +18,17 @@ const displayAuthors = (authors) => {
     </div>`;
 	});
 };
+
+//function to load more authors & eventListener for loadMore(Authors)Btn
+const fetchMoreAuthors = () => {
+	startingIndex += 8;
+	endingIndex += 8;
+
+	displayAuthors(authorDataArr.slice(startingIndex, endingIndex));
+};
+
+loadMoreBtn.addEventListener('click', fetchMoreAuthors);
+
 //fetch request
 fetch('https://cdn.freecodecamp.org/curriculum/news-author-page/authors.json')
 	.then((res) => res.json())

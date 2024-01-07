@@ -18,13 +18,13 @@ const getPokemon = async (query) => {
 		const res = await fetch(
 			`https://pokeapi-proxy.freecodecamp.rocks/api/pokemon/${query}`,
 		);
-		const data = await res.json();
-		console.log(data);
-
-		if (data.detail === 'Not found.') {
+		if (!res.ok) {
 			alert('Pokémon not found');
 			return;
 		}
+		const data = await res.json();
+		console.log(data);
+
 		pName.textContent = data.name.toUpperCase();
 		pid.textContent = `#${data.id}`;
 		weight.textContent = `Weight: ${data.weight}`;
@@ -42,10 +42,16 @@ const getPokemon = async (query) => {
 			typeElement.textContent = type.type.name.toUpperCase();
 			types.appendChild(typeElement);
 		});
-		const sprite = document.createElement('img');
-		sprite.id = 'sprite';
-		sprite.src = data.sprites.front_default;
-		document.querySelector('.sprite-container').appendChild(sprite);
+		const spriteContainer = document.querySelector('.sprite-container');
+		let sprite = document.getElementById('sprite');
+		if (sprite) {
+			sprite.src = data.sprites.front_default;
+		} else {
+			sprite = document.createElement('img');
+			sprite.id = 'sprite';
+			sprite.src = data.sprites.front_default;
+			spriteContainer.appendChild(sprite);
+		}
 	} catch (error) {
 		console.log('Error:', error);
 	}
